@@ -32,9 +32,9 @@
 ##### Salto- W
 ##### Izquierda - A
 ##### Derecha - D
-##### disparo - C
+##### disparo - F
 #### JUGADOR 2
 ##### Salto- Flecha arriba
 ##### Izquierda - Flecha izq.
 ##### Derecha - Flecha dcha.
-##### disparo - M
+##### disparo - P
