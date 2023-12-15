@@ -18,6 +18,7 @@
 </head>
 
 <body>
+    <audio src="assets/sounds/music.mp3" autoplay loop></audio>
     <script type="text/javascript">
 
         "use strict";
@@ -55,6 +56,11 @@
 
                 //GameOver
                 this.gameOver = false;
+
+                //Botón de pausa
+                this.pauseButtonContainer;
+
+
             }
 
             initialize() {
@@ -92,6 +98,12 @@
                 this.load.image('vidas player2 2', 'assets/images/vidas azul 2.png');
                 this.load.image('vidas player2 1', 'assets/images/vidas azul 1.png');
 
+                //Boton de pausa
+                this.load.image('botonPausa', 'assets/images/pausa.png')
+
+                //Sonido disparo
+                this.load.audio('myGunSound', 'assets/sounds/bang.mp3');
+
             }
 
             create() {
@@ -99,6 +111,34 @@
                 this.sky = this.add.image(400, 300, 'fondo');
                 this.sky.setDepth(-1);
                 this.sky.setDisplaySize(800, 600);
+
+
+                //Añadimos el boton de pausa
+                this.pauseImage = this.add.image(0, 0, 'botonPausa');        
+                //Lo hacemos interactivo
+                this.pauseButtonContainer = this.add.container(400, 50, [this.pauseImage]);
+                this.pauseButtonContainer.setSize(this.pauseImage.height, this.pauseImage.width);
+                this.pauseButtonContainer.setInteractive();       
+
+                if (this.pauseButtonContainer) {
+                    this.pauseButtonContainer.on('pointerdown', () => {
+                        if (this.scene && this.scene.wake && this.scene.pause) {
+                            this.scene.wake('PauseMenuScene');
+                            this.scene.pause('GameScene');
+                        }
+                    });
+                }
+
+                if (this.pauseButtonContainer && this.pauseImage) {
+                    this.pauseButtonContainer.on('pointerover', () => {
+                        this.pauseImage.setScale(1.2);
+                    });
+
+                    this.pauseButtonContainer.on('pointerout', () => {
+                        this.pauseImage.setScale(1);
+                    });
+                }
+
 
                 //Añadimos las plataformas
                 //Las hacemos estáticas
@@ -221,11 +261,13 @@
 
             //Metodo para disparo de player1
             shootdisparoP1(xpos, ypos, direc) {
-                this.disparosP1.fireBalaP1(xpos, ypos, direc);
+                this.disparosP1.fireBalaP1(xpos, ypos, direc);                
+                this.sound.play('myGunSound');
             }
             //Metodo para disparo de player2
             shootdisparoP2(xpos, ypos, direc) {
-                this.disparosP2.fireBulletP2(xpos, ypos, direc);
+                this.disparosP2.fireBulletP2(xpos, ypos, direc);                
+                this.sound.play('myGunSound');
             }
 
             update() {
@@ -278,8 +320,6 @@
 
                 //Disparo del player 1
                 if ((Phaser.Input.Keyboard.JustDown(this.keyF))) {
-
-
                     if (this.player1.body.touching.left & this.lastP2direction == 'left') {
 
                     }
@@ -292,7 +332,7 @@
                 }
 
                 //Disparo del player 2
-                if ((Phaser.Input.Keyboard.JustDown(this.keyP))) {
+                if ((Phaser.Input.Keyboard.JustDown(this.keyP))) { 
                     if (this.player1.body.touching.left & this.lastP1direction == 'left') {
 
                     }
@@ -334,11 +374,13 @@
                 //Si el player 2 se queda sin vidas
                 else if (this.gameOver == true && this.vidasply2 == 0) {
                     this.scene.start('EscenaFinalP1');
+                    this.gameOver = false;
                 }
 
                 //Si el player 1 se queda sin vidas
                 if (this.gameOver == true && this.vidasply1 == 0) {
                     this.scene.start('EscenaFinalP2');
+                    this.gameOver = false;
                 }
 
             }
@@ -656,7 +698,7 @@
                 //Añadimos la imagen de fondo
                 this.pausa = this.add.image(400, 300, 'fondoPausa');
                 //Añadimos la imagen de pausa
-                this.pauseImage = this.add.image(400, 150, 'botonPausa');
+                this.pauseImage = this.add.image(400, 50, 'botonPausa');
                 //Añadimos el boton de reanudar
                 this.resumeButton = this.add.image(0, 0, 'botonReanudar');
                 //Lo hacemos interactivo
@@ -668,17 +710,16 @@
                     this.scene.scene.sleep('PauseMenuScene');
                     this.scene.scene.resume('GameScene');
                 })
+                
+                if (this.resumeButtonContainer && this.resumeButton) {
+                    this.resumeButtonContainer.on('pointerover', () => {
+                        this.resumeButton.setScale(1.2);
+                    });
 
-                //Highlight (no funciona)
-                this.resumeButtonContainer.on('pointerover', function () {
-                    boton.setScale(1.5)
-                })
-
-                this.resumeButtonContainer.on('pointerout', function () {
-                    boton.setScale(1)
-                })
-
-
+                    this.resumeButtonContainer.on('pointerout', () => {
+                        this.resumeButton.setScale(1);
+                    });
+                }
             }
 
         }
@@ -842,7 +883,7 @@
 
             preload() {
                 //Cargamos las imágenes
-                this.load.image('fondoContrl', 'assets/images/backgroundContrl.jpeg');
+                this.load.image('fondoContrl', 'assets/images/backgroundContrl.jpg');
                 this.load.image('botonReiniciar', 'assets/images/reiniciar.png');
             }
 
@@ -853,7 +894,7 @@
                 //Colocamos el botón
                 var botonVolver = this.add.image(0, 0, 'botonReiniciar');
                 //Lo hacemos interactivo
-                this.returnButtonContainer = this.add.container(700, 550, [botonVolver]);
+                this.returnButtonContainer = this.add.container(400, 550, [botonVolver]);
                 this.returnButtonContainer.setSize(botonVolver.height, botonVolver.width);
                 this.returnButtonContainer.setInteractive();
 
@@ -885,7 +926,7 @@
             },
             autoCenter: false,
 
-            scene: [MainMenuScene, EscenaJuego, PauseMenuScene , VictoryScenePlayer1, VictoryScenePlayer2, CreditScene],
+            scene: [MainMenuScene, EscenaJuego, PauseMenuScene , VictoryScenePlayer1, VictoryScenePlayer2, CreditScene, ContrlScene],
         };
 
         var game = new Phaser.Game(config);
