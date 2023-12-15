@@ -5,6 +5,7 @@
     <meta charset="UTF-8" />
     <title>PayBack</title>
     <script src="https://cdn.jsdelivr.net/npm/phaser@3.15.1/dist/phaser-arcade-physics.min.js"></script>
+    <link rel="icon" href="assets/images/icon.ico">
 
 
     <style type="text/css">
@@ -18,7 +19,7 @@
 </head>
 
 <body>
-    <audio src="assets/sounds/music.mp3" autoplay loop></audio>
+    <audio src="assets/sounds/music.mp3" autoplay loop>Music</audio>
     <script type="text/javascript">
 
         "use strict";
@@ -39,8 +40,8 @@
                 this.cursors;
 
                 //Vidas
-                this.vidasply1 = 3;
-                this.vidasply2 = 3;
+                this.vidasply1;
+                this.vidasply2;
 
                 //Sprite de las vidas
                 this.imgvidasply2;
@@ -65,6 +66,9 @@
 
             initialize() {
                 Phaser.Scene.call(this, { key: 'GameScene' });
+                // Reiniciar las vidas según sea necesario
+                this.vidasply1 = 3;
+                this.vidasply2 = 3;
             }
 
             preload() {
@@ -104,6 +108,9 @@
                 //Sonido disparo
                 this.load.audio('myGunSound', 'assets/sounds/bang.mp3');
 
+                //Sonido daño 
+                this.load.audio('ouch', 'assets/sounds/hit.mp3');
+
             }
 
             create() {
@@ -114,7 +121,7 @@
 
 
                 //Añadimos el boton de pausa
-                this.pauseImage = this.add.image(0, 0, 'botonPausa');        
+                this.pauseImage = this.add.image(0, 0, 'botonPausa').setDepth(2);
                 //Lo hacemos interactivo
                 this.pauseButtonContainer = this.add.container(400, 50, [this.pauseImage]);
                 this.pauseButtonContainer.setSize(this.pauseImage.height, this.pauseImage.width);
@@ -124,6 +131,7 @@
                     this.pauseButtonContainer.on('pointerdown', () => {
                         if (this.scene && this.scene.wake && this.scene.pause) {
                             this.scene.wake('PauseMenuScene');
+                            this.scene.bringToTop('PauseMenuScene');
                             this.scene.pause('GameScene');
                         }
                     });
@@ -245,9 +253,6 @@
                 this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
                 this.keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
 
-                //Tecla esc
-                this.keyEsc = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
-
                 //Disparos 
                 this.disparosP1 = new Player1BulletGroup(this);
                 this.disparosP2 = new Player2BulletGroup(this);
@@ -257,6 +262,8 @@
                 this.physics.add.collider(this.disparosP1, this.platforms);
                 this.physics.add.collider(this.disparosP2, this.platforms);
 
+                this.vidasply1 = 3;
+                this.vidasply2 = 3;                
             }
 
             //Metodo para disparo de player1
@@ -269,6 +276,7 @@
                 this.disparosP2.fireBulletP2(xpos, ypos, direc);                
                 this.sound.play('myGunSound');
             }
+
 
             update() {
 
@@ -345,17 +353,11 @@
                     }
                 }
 
-                //Invocar menú de pausa
-                if ((Phaser.Input.Keyboard.JustDown(this.keyEsc))) {
-
-                    this.scene.wake('PauseMenuScene');
-                    this.scene.pause('GameScene')
-
-                }
-
                 //Si el player 1 sufre un impacto se tiñe de rojo durante 0.3 secs
                 if (this.impactoP2 == true) {
                     this.player2.setTint(0xff0000);
+                    //Sonido                
+                    this.sound.play('ouch');
                     setTimeout(() => {
                         this.player2.setTint(0xffffff);
                     }, "300")
@@ -365,6 +367,8 @@
                 //Si el player 2 sufre un impacto se tiñe de rojo durante 0.3 secs
                 if (this.impactoP1 == true) {
                     this.player1.setTint(0xff0000);
+                    //Sonido
+                    this.sound.play('ouch');
                     setTimeout(() => {
                         this.player1.setTint(0xffffff);
                     }, "300");
@@ -373,14 +377,20 @@
 
                 //Si el player 2 se queda sin vidas
                 else if (this.gameOver == true && this.vidasply2 == 0) {
-                    this.scene.start('EscenaFinalP1');
+                    this.vidasply1 = 3;
+                    this.vidasply2 = 3;
                     this.gameOver = false;
+                    this.scene.start('EscenaFinalP1');
+                    this.scene.bringToTop('EscenaFinalP1');
                 }
 
                 //Si el player 1 se queda sin vidas
                 if (this.gameOver == true && this.vidasply1 == 0) {
-                    this.scene.start('EscenaFinalP2');
+                    this.vidasply1 = 3;
+                    this.vidasply2 = 3;
                     this.gameOver = false;
+                    this.scene.start('EscenaFinalP2');
+                    this.scene.bringToTop('EscenaFinalP2');
                 }
 
             }
@@ -625,6 +635,7 @@
 
                 // Si pulsamos, nos lleva a la escena de juego
                 this.playButtonContainer.on('pointerdown', function () {
+                    this.scene.scene.bringToTop('GameScene');
                     this.scene.scene.launch('PauseMenuScene');
                     this.scene.scene.launch('GameScene');
                     this.scene.scene.sleep('PauseMenuScene');
@@ -642,6 +653,7 @@
 
                 // Si pulsamos, nos lleva a la escena de créditos
                 this.creditsButtonContainer.on('pointerdown', function () {
+                    this.scene.scene.bringToTop('CreditScene');
                     this.scene.scene.launch('CreditScene');
                 });
 
@@ -657,6 +669,7 @@
                 
                 // Si pulsamos, nos lleva a la escena de controles
                 this.contrlButtonContainer.on('pointerdown', function () {
+                    this.scene.scene.bringToTop('ContrlScene');
                     this.scene.scene.launch('ContrlScene');
                 });
 
@@ -680,7 +693,9 @@
                 this.resumeButton;
                 this.pauseImage;
                 this.resumeButtonContainer;
-                this.pausa;
+                this.exitButtonContainer;
+                this.exitButton;
+                this.gameScene;
             }
 
             initialize() {
@@ -692,19 +707,25 @@
                 this.load.image('botonReanudar', 'assets/images/botonJugar.png')
                 this.load.image('botonPausa', 'assets/images/pausa.png')
                 this.load.image('fondoPausa', 'assets/images/backgroundpausa.jpeg')
+                this.load.image('botonExit', 'assets/images/botonSalir.png')
             }
 
             create() {
                 //Añadimos la imagen de fondo
-                this.pausa = this.add.image(400, 300, 'fondoPausa');
+                this.background = this.add.image(400, 300, 'fondoPausa');
                 //Añadimos la imagen de pausa
                 this.pauseImage = this.add.image(400, 50, 'botonPausa');
                 //Añadimos el boton de reanudar
                 this.resumeButton = this.add.image(0, 0, 'botonReanudar');
-                //Lo hacemos interactivo
+                //Boton de salir
+                this.exitButton = this.add.image(0, 0, 'botonExit');
+                //Los hacemos interactivos
                 this.resumeButtonContainer = this.add.container(400, 300, [this.resumeButton]);
                 this.resumeButtonContainer.setSize(this.resumeButton.height, this.resumeButton.width);
                 this.resumeButtonContainer.setInteractive();
+                this.exitButtonContainer = this.add.container(700, 550, [this.exitButton]);
+                this.exitButtonContainer.setSize(this.exitButton.height, this.exitButton.width);
+                this.exitButtonContainer.setInteractive();
 
                 this.resumeButtonContainer.on('pointerdown', function () {
                     this.scene.scene.sleep('PauseMenuScene');
@@ -718,6 +739,22 @@
 
                     this.resumeButtonContainer.on('pointerout', () => {
                         this.resumeButton.setScale(1);
+                    });
+                }
+                this.gameScene = this.scene.get('GameScene');
+
+                this.exitButtonContainer.on('pointerdown', function () {
+                    this.scene.scene.bringToTop('MainMenuScene');
+                    this.scene.scene.start('MainMenuScene');
+                })
+                
+                if (this.exitButtonContainer && this.exitButton) {
+                    this.exitButtonContainer.on('pointerover', () => {
+                        this.exitButton.setScale(1.2);
+                    });
+
+                    this.exitButtonContainer.on('pointerout', () => {
+                        this.exitButton.setScale(1);
                     });
                 }
             }
@@ -761,6 +798,7 @@
                 this.restartButtonContainer.setInteractive();
 
                 this.restartButtonContainer.on('pointerdown', function () {
+                    this.scene.scene.bringToTop('MainMenuScene');
                     this.scene.scene.start('MainMenuScene');
                 })
                 //Highlight
@@ -812,6 +850,7 @@
                 this.restartButtonContainer.setInteractive();
 
                 this.restartButtonContainer.on('pointerdown', function () {
+                    this.scene.scene.bringToTop('MainMenuScene');
                     this.scene.scene.start('MainMenuScene');
                 })
                 //Highlight
@@ -855,6 +894,7 @@
                 this.returnButtonContainer.setInteractive();
 
                 this.returnButtonContainer.on('pointerdown', function () {
+                    this.scene.scene.bringToTop('MainMenuScene');
                     this.scene.scene.start('MainMenuScene');
                 })
                 //Highlight
@@ -899,6 +939,7 @@
                 this.returnButtonContainer.setInteractive();
 
                 this.returnButtonContainer.on('pointerdown', function () {
+                    this.scene.scene.bringToTop('MainMenuScene');
                     this.scene.scene.start('MainMenuScene');
                 })
                 //Highlight
