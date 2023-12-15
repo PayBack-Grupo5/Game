@@ -10,6 +10,9 @@
     <style type="text/css">
         body {
             margin: 0;
+            padding: 7%;
+            text-align: center;
+            background-color: #021B36;
         }
     </style>
 </head>
@@ -550,12 +553,14 @@
                 // Elementos de la escena de menú inicial
                 this.background;
                 this.playButtonContainer;
+                this.creditsButtonContainer;
             }
 
             preload() {
                 // Imágenes de fondo y botón
                 this.load.image('titleBackground', 'assets/images/titulo.jpeg');
                 this.load.image('playButton', 'assets/images/botonJugar.png');
+                this.load.image('creditsButton', 'assets/images/botonCredits.png');
             }
 
             create() {
@@ -564,11 +569,16 @@
 
                 // Añadimos el botón de juego
                 const playButton = this.add.image(0, 0, 'playButton');
+                const creditsButton = this.add.image(0, 0, 'creditsButton');
 
                 // Hacemos que el botón sea interactivo
-                this.playButtonContainer = this.add.container(400, 500, [playButton]);
+                this.playButtonContainer = this.add.container(400, 450, [playButton]);
                 this.playButtonContainer.setSize(playButton.height, playButton.width);
                 this.playButtonContainer.setInteractive();
+                // Hacemos que el botón sea interactivo
+                this.creditsButtonContainer = this.add.container(700, 550, [creditsButton]);
+                this.creditsButtonContainer.setSize(creditsButton.height, creditsButton.width);
+                this.creditsButtonContainer.setInteractive();
 
                 // Si pulsamos, nos lleva a la escena de juego
                 this.playButtonContainer.on('pointerdown', function () {
@@ -585,6 +595,21 @@
                 // Restaura la escala normal del botón al quitar el puntero
                 this.playButtonContainer.on('pointerout', function () {
                     playButton.setScale(1);
+                });
+
+                // Si pulsamos, nos lleva a la escena de juego
+                this.creditsButtonContainer.on('pointerdown', function () {
+                    this.scene.scene.launch('CreditScene');
+                });
+
+                // Resalta el botón al pasar el puntero sobre él
+                this.creditsButtonContainer.on('pointerover', function () {
+                    creditsButton.setScale(1.5);
+                });
+
+                // Restaura la escala normal del botón al quitar el puntero
+                this.creditsButtonContainer.on('pointerout', function () {
+                    creditsButton.setScale(1);
                 });
             }
         }
@@ -629,11 +654,11 @@
                 })
 
                 //Highlight (no funciona)
-                this.botonDetect.on('pointerover', function () {
+                this.resumeButtonContainer.on('pointerover', function () {
                     boton.setScale(1.5)
                 })
 
-                this.botonDetect.on('pointerout', function () {
+                this.resumeButtonContainer.on('pointerout', function () {
                     boton.setScale(1)
                 })
 
@@ -743,7 +768,49 @@
             }
         }
     
-        
+        class CreditScene extends Phaser.Scene{
+            constructor() {
+                super('CreditScene');
+                //Elementos de la escena final
+                this.background;
+                this.returnButtonContainer;
+            }
+
+            initialize() {
+                Phaser.Scene.call(this, { key: 'CreditScene' });
+            }
+
+            preload() {
+                //Cargamos las imágenes
+                this.load.image('fondoCreditos', 'assets/images/backgroundCredits.jpeg');
+                this.load.image('botonReiniciar', 'assets/images/reiniciar.png');
+            }
+
+            create() {
+                //Colocamos la imagen de fondo
+                this.background = this.add.image(400, 300, 'fondoCreditos');
+                this.background.setDepth(-1);
+                //Colocamos el botón
+                var botonVolver = this.add.image(0, 0, 'botonReiniciar');
+                //Lo hacemos interactivo
+                this.returnButtonContainer = this.add.container(700, 550, [botonVolver]);
+                this.returnButtonContainer.setSize(botonVolver.height, botonVolver.width);
+                this.returnButtonContainer.setInteractive();
+
+                this.returnButtonContainer.on('pointerdown', function () {
+                    this.scene.scene.start('MainMenuScene');
+                })
+                //Highlight
+                this.returnButtonContainer.on('pointerover', function () {
+                    botonVolver.setScale(1.2);
+                })
+
+                this.returnButtonContainer.on('pointerout', function () {
+                    botonVolver.setScale(1);
+                })
+            }
+        }
+
         //Config del tutorial reusado para el juego
         var config = {
             type: Phaser.AUTO,
@@ -758,7 +825,7 @@
             },
             autoCenter: false,
 
-            scene: [MainMenuScene, EscenaJuego, PauseMenuScene , VictoryScenePlayer1, VictoryScenePlayer2],
+            scene: [MainMenuScene, EscenaJuego, PauseMenuScene , VictoryScenePlayer1, VictoryScenePlayer2, CreditScene],
         };
 
         var game = new Phaser.Game(config);
