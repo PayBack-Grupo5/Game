@@ -334,17 +334,11 @@
                 //Si el player 2 se queda sin vidas
                 else if (this.gameOver == true && this.vidasply2 == 0) {
                     this.scene.start('EscenaFinalP1');
-                    this.gameOver = false;
-                    this.vidasply1 = 3;
-                    this.vidasply2 = 3;
                 }
 
                 //Si el player 1 se queda sin vidas
                 if (this.gameOver == true && this.vidasply1 == 0) {
                     this.scene.start('EscenaFinalP2');
-                    this.gameOver = false;
-                    this.vidasply1 = 3;
-                    this.vidasply2 = 3;
                 }
 
             }
@@ -554,6 +548,7 @@
                 this.background;
                 this.playButtonContainer;
                 this.creditsButtonContainer;
+                this.contrlButtonContainer;
             }
 
             preload() {
@@ -561,6 +556,7 @@
                 this.load.image('titleBackground', 'assets/images/titulo.jpeg');
                 this.load.image('playButton', 'assets/images/botonJugar.png');
                 this.load.image('creditsButton', 'assets/images/botonCredits.png');
+                this.load.image('contrlButton', 'assets/images/botonContrl.png');
             }
 
             create() {
@@ -570,15 +566,20 @@
                 // Añadimos el botón de juego
                 const playButton = this.add.image(0, 0, 'playButton');
                 const creditsButton = this.add.image(0, 0, 'creditsButton');
+                const contrlButton = this.add.image(0, 0, 'contrlButton');
 
                 // Hacemos que el botón sea interactivo
                 this.playButtonContainer = this.add.container(400, 450, [playButton]);
                 this.playButtonContainer.setSize(playButton.height, playButton.width);
                 this.playButtonContainer.setInteractive();
                 // Hacemos que el botón sea interactivo
-                this.creditsButtonContainer = this.add.container(700, 550, [creditsButton]);
+                this.creditsButtonContainer = this.add.container(400, 550, [creditsButton]);
                 this.creditsButtonContainer.setSize(creditsButton.height, creditsButton.width);
                 this.creditsButtonContainer.setInteractive();
+                // Hacemos que el botón sea interactivo
+                this.contrlButtonContainer = this.add.container(700, 50, [contrlButton]);
+                this.contrlButtonContainer.setSize(contrlButton.height, contrlButton.width);
+                this.contrlButtonContainer.setInteractive();
 
                 // Si pulsamos, nos lleva a la escena de juego
                 this.playButtonContainer.on('pointerdown', function () {
@@ -597,7 +598,7 @@
                     playButton.setScale(1);
                 });
 
-                // Si pulsamos, nos lleva a la escena de juego
+                // Si pulsamos, nos lleva a la escena de créditos
                 this.creditsButtonContainer.on('pointerdown', function () {
                     this.scene.scene.launch('CreditScene');
                 });
@@ -610,6 +611,21 @@
                 // Restaura la escala normal del botón al quitar el puntero
                 this.creditsButtonContainer.on('pointerout', function () {
                     creditsButton.setScale(1);
+                });
+                
+                // Si pulsamos, nos lleva a la escena de controles
+                this.contrlButtonContainer.on('pointerdown', function () {
+                    this.scene.scene.launch('ContrlScene');
+                });
+
+                // Resalta el botón al pasar el puntero sobre él
+                this.contrlButtonContainer.on('pointerover', function () {
+                    contrlButton.setScale(1.5);
+                });
+
+                // Restaura la escala normal del botón al quitar el puntero
+                this.contrlButtonContainer.on('pointerout', function () {
+                    contrlButton.setScale(1);
                 });
             }
         }
@@ -809,8 +825,52 @@
                     botonVolver.setScale(1);
                 })
             }
+            
         }
 
+        class ContrlScene extends Phaser.Scene{
+            constructor() {
+                super('ContrlScene');
+                //Elementos de la escena final
+                this.background;
+                this.returnButtonContainer;
+            }
+
+            initialize() {
+                Phaser.Scene.call(this, { key: 'ContrlScene' });
+            }
+
+            preload() {
+                //Cargamos las imágenes
+                this.load.image('fondoContrl', 'assets/images/backgroundContrl.jpeg');
+                this.load.image('botonReiniciar', 'assets/images/reiniciar.png');
+            }
+
+            create() {
+                //Colocamos la imagen de fondo
+                this.background = this.add.image(400, 300, 'fondoContrl');
+                this.background.setDepth(-1);
+                //Colocamos el botón
+                var botonVolver = this.add.image(0, 0, 'botonReiniciar');
+                //Lo hacemos interactivo
+                this.returnButtonContainer = this.add.container(700, 550, [botonVolver]);
+                this.returnButtonContainer.setSize(botonVolver.height, botonVolver.width);
+                this.returnButtonContainer.setInteractive();
+
+                this.returnButtonContainer.on('pointerdown', function () {
+                    this.scene.scene.start('MainMenuScene');
+                })
+                //Highlight
+                this.returnButtonContainer.on('pointerover', function () {
+                    botonVolver.setScale(1.2);
+                })
+
+                this.returnButtonContainer.on('pointerout', function () {
+                    botonVolver.setScale(1);
+                })
+            }
+            
+        }
         //Config del tutorial reusado para el juego
         var config = {
             type: Phaser.AUTO,
