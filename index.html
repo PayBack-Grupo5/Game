@@ -92,7 +92,7 @@
                     'assets/images/disparo.png',
                     { frameWidth: 512, frameHeight: 144 } 
                 );
-
+                //this.load.image('disparo', 'assets/images/disparo.jpeg');
 
                 //Imagenes de las vidas
                 this.load.image('vidas player1 3', 'assets/images/vidas roja 3.png');
@@ -182,12 +182,14 @@
                 this.player1 = this.physics.add.sprite(500, 500, 'personaje1');
                 this.player1.setDisplaySize(32, 48);
                 this.player1.setCollideWorldBounds(true);
+                this.lastP1direction = 'right';
 
 
                 //Colocamos al player2
                 this.player2 = this.physics.add.sprite(300, 500, 'personaje2');
                 this.player2.setDisplaySize(32, 48);
                 this.player2.setCollideWorldBounds(true);
+                this.lastP2direction = 'right';
 
                 //Animaciones del player1
                 this.anims.create({
@@ -235,7 +237,7 @@
                 //Animaciones de disparo
                 this.anims.create({
                     key: 'disp',
-                    frames: this.anims.generateFrameNumbers('disparo', { start: 0, end: 4 }),
+                    frames: this.anims.generateFrameNumbers('disparo', { start: 0, end: 0 }),
                     frameRate: 4,
                     repeat: -1
                 });
