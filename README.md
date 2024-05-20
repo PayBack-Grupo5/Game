@@ -23,7 +23,7 @@
 ##### Se muestra una imagen en la parte superior indicando que el jugador 2 ha sido el vencedor. Abajo de esta indicación hay un boton de reinicio que permite volver al menú principal para jugar otra partida.
 ![victoria_J2](Capturas/victoria_J2.jpeg)
 ### DIAGRAMA DE ESCENAS
-![Menu](Capturas/diagrama_de_estados.jpeg)
+![Menu](Capturas/diagrama_de_estados.png)
 ##### En este menú se muestra el desplazamiento que puede hacer el jugador entre las escenas. En primer lugar, desde el menú principal solo puede acceder al juego, desde el juego al menú de pausa, y al de victoria de cada jugador. Desde estos se puede acceder al menu principal otra vez.
 ### DISEÑO
 ##### Para el diseño del juego se ha usado la inteligencia artificial para la creación de fondos, un fondo donde podemos observar que es el antiguo oeste mezclado con toques futurísicos. Los botones y letreros se han hecho en dorado para que destaquen. 
