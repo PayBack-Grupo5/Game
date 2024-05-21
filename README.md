@@ -1,12 +1,5 @@
 # PAYBACK
 
-### Descripción de la temática del juego
-###### PayBack es un juego de plataformas y combates 1 vs 1 en 2D de hasta 2 jugadores. Los jugadores controlan a héroes en batallas multijugador donde el objetivo es eliminar a los oponentes y ser el último en pie. El juego ofrece una amplia variedad de personajes, arenas y modos de juego para mantener a los jugadores entretenidos
-###### -Carlos Vega San Román
-###### -Javier Luis Moreno Erustes
-###### -José Antonio Moratalla Zabala
-###### -María González Martínez-Cubells
-
 ### ESCENAS
 ##### Se muestra el titulo del juego junto a un botón "jugar" con el que los jugadores comienzan la partida.
 ![Menu](Capturas/menu.jpeg)
