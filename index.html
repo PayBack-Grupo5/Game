@@ -90,7 +90,7 @@
 
                 this.load.spritesheet('disparo',
                     'assets/images/disparo.png',
-                    { frameWidth: 512, frameHeight: 144 } 
+                    { frameWidth: 554, frameHeight: 144 } 
                 );
                 //this.load.image('disparo', 'assets/images/disparo.jpeg');
 
@@ -237,7 +237,7 @@
                 //Animaciones de disparo
                 this.anims.create({
                     key: 'disp',
-                    frames: this.anims.generateFrameNumbers('disparo', { start: 0, end: 0 }),
+                    frames: this.anims.generateFrameNumbers('disparo', { start: 0, end: 4 }),
                     frameRate: 4,
                     repeat: -1
                 });
@@ -476,14 +476,14 @@
         //Comportamiento de las balas 
         class Player1Bullet extends Phaser.Physics.Arcade.Sprite {
             constructor(scene, x, y) {
-                super(scene, x, y, 'disp')
+                super(scene, x, y, 'disp');
             }
 
             fireP1(x, y, direction) {
 
                 if (direction == 'left') {
                     this.flipX = true;
-                    this.body.reset(x, y);
+                    this.body.reset(x-80, y);
                     this.setVelocityX(-300);
                     this.anims.play('disp', true);
                     this.setOrigin(0, 0.5);
@@ -499,6 +499,8 @@
                 this.setActive(true);
                 this.setVisible(true);
                 this.setDisplaySize(100, 16);
+                //this.setSize(5, 10); // Ajustar el tamaño de la hitbox
+                //this.setOffset(0, 0); // Ajustar la posición de la hitbox dentro del sprite
                 this.body.setAllowGravity(false);
             }
 
@@ -548,14 +550,14 @@
         //Comportamiento de las balas 
         class Player2Bullet extends Phaser.Physics.Arcade.Sprite {
             constructor(scene, x, y) {
-                super(scene, x, y, 'disp')
+                super(scene, x, y, 'disp');
             }
 
             fireP2(x, y, direction) {
 
                 if (direction == 'left') {
                     this.flipX = true;
-                    this.body.reset(x, y);
+                    this.body.reset(x-100, y);
                     this.setVelocityX(-300);
                     this.anims.play('disp', true);
                     this.setOrigin(0, 0.5);
@@ -573,6 +575,8 @@
                 this.setActive(true);
                 this.setVisible(true);
                 this.setDisplaySize(100, 16);
+                //this.setSize(20, 10); // Ajustar el tamaño de la hitbox
+                //this.setOffset(10, 3); // Ajustar la posición de la hitbox dentro del sprite
 
                 this.body.setAllowGravity(false);
             }
