@@ -296,7 +296,7 @@ Jefe de modelado: Carlos Vega San Román
 Carlos lidera el equipo de modelado, encargado de crear los modelos bidimensionales de los personajes, escenarios y objetos del juego. Supervisa el proceso de modelado, desde la creación de los bocetos iniciales hasta la implementación final en el juego.
 
 
-#RESUMEN
+# RESUMEN
 
 ### ESCENAS
 ##### Se muestra el titulo del juego junto a un botón "jugar" con el que los jugadores comienzan la partida.
