@@ -89,8 +89,8 @@
                 );
 
                 this.load.spritesheet('disparo',
-                    'assets/images/disparo.png',
-                    { frameWidth: 554, frameHeight: 144 } 
+                    'assets/images/disparo2.png',
+                    { frameWidth: 254, frameHeight: 120 } 
                 );
                 //this.load.image('disparo', 'assets/images/disparo.jpeg');
 
@@ -461,14 +461,28 @@
                     setXY: { x: -100, y: -100 }
                 })
 
+                //Cooldown
+                this.canShoot = true;
+                this.shootCooldown = 500; // Tiempo de enfriamiento en milisegundos
             }
 
             fireBalaP1(x, y, direccion) {
-
-                const bala = this.getFirstDead(false);
-                if (bala) {
-                    bala.fireP1(x, y, direccion);
+                if(this.canShoot){
+                    const bala = this.getFirstDead(false);
+                    if (bala) {
+                        bala.fireP1(x, y, direccion);
+                        // Después de disparar, iniciar el cooldown
+                        this.canShoot = false;
+                        this.scene.time.addEvent({
+                        delay: this.shootCooldown,
+                        callback: () => {
+                            this.canShoot = true;
+                        },
+                        callbackScope: this
+                        });
+                    }
                 }
+                
             }
 
 
@@ -498,16 +512,18 @@
                 }
                 this.setActive(true);
                 this.setVisible(true);
-                this.setDisplaySize(100, 16);
-                //this.setSize(5, 10); // Ajustar el tamaño de la hitbox
-                //this.setOffset(0, 0); // Ajustar la posición de la hitbox dentro del sprite
+                this.setDisplaySize(75, 16);
+                //this.setSize(24, 20); // Ajustar el tamaño de la hitbox
+                //this.setOffset(8, 12); // Ajustar la posición de la hitbox dentro del sprite
                 this.body.setAllowGravity(false);
             }
 
             preUpdate(time, delta) {
                 super.preUpdate(time, delta);
 
-                if (this.x >= 800 | this.x <= 0) {
+                //const screenWidth = this.scene.scale.width;
+
+                if (this.x >= 800 || this.x <= 0) {
                     this.setActive(false);
                     this.setVisible(false);
                 }
@@ -536,12 +552,26 @@
                     setXY: { x: -100, y: -100 }
                 })
 
+                //Cooldown
+                this.canShoot = true;
+                this.shootCooldown = 500; // Tiempo de enfriamiento en milisegundos
             }
 
             fireBulletP2(x, y, direccion) {
-                const bala = this.getFirstDead(false);
-                if (bala) {
-                    bala.fireP2(x, y, direccion);
+                if(this.canShoot){
+                    const bala = this.getFirstDead(false);
+                    if (bala) {
+                        bala.fireP2(x, y, direccion);
+                        // Después de disparar, iniciar el cooldown
+                        this.canShoot = false;
+                        this.scene.time.addEvent({
+                        delay: this.shootCooldown,
+                        callback: () => {
+                            this.canShoot = true;
+                        },
+                        callbackScope: this
+                        });
+                    }
                 }
             }
 
@@ -574,7 +604,7 @@
 
                 this.setActive(true);
                 this.setVisible(true);
-                this.setDisplaySize(100, 16);
+                this.setDisplaySize(75, 16);
                 //this.setSize(20, 10); // Ajustar el tamaño de la hitbox
                 //this.setOffset(10, 3); // Ajustar la posición de la hitbox dentro del sprite
 
