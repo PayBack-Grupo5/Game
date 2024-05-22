@@ -6,7 +6,97 @@
 Game Design Document
 
 
-Versión: 0.1.1
+Versión: 0.3.2
+
+
+
+
+
+
+
+
+
+
+
+
+
+Grupo 5
+
+Escrito por:
+María González Martínez-Cubells
+José Antonio Moratalla Zabala
+Javier Luis Moreno Erustes
+Carlos Vega San Román
+
+ÍNDICE
+
+Resumen	4
+Concepto del juego	4
+Características del juego	4
+Género	5
+Juego de lucha	5
+Disparos	5
+Plataformas	6
+Público objetivo	6
+Jugabilidad	7
+Referencias a otros videojuegos	7
+Historia y trasfondo	8
+Mecánicas de juego	9
+Mecánicas	9
+Movimiento	9
+Armamento	9
+PowerUps	9
+Supervivencia	10
+Sistema de combate	10
+Plataformas	10
+Elección de personajes	10
+Personajes	11
+Características de los personajes	11
+Cámaras	12
+Periféricos	13
+Controles	13
+Movimiento y físicas	14
+Movimiento sobre plataformas	14
+Interacción entre elementos	14
+Colisiones y Física del Juego	14
+Interfaz	15
+Diagrama de Flujo	15
+Menú Principal	16
+Menú de Selección del Personaje	16
+Menú de Pausa	17
+Escenarios	17
+Modos de juego	17
+Progresión y personalización	17
+Arte y sonido	17
+Estilo artístico 2D	17
+Colores	18
+Música y efectos de sonido	18
+Referencias de otros videojuegos	19
+Monetización	19
+Equipo	19
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 Resumen
@@ -62,7 +152,7 @@ Jugabilidad
 La jugabilidad de Payback se distingue por su dinamismo y profundidad, ofreciendo una experiencia envolvente tanto para jugadores casuales como para aquellos más dedicados. Aquí se detallan los principales aspectos de la jugabilidad:
 
 Combate en 2D
-El juego se desarrolla en un plano bidimensional, lo que facilita la precisión en los movimientos y ataques. Los combates son rápidos e intensos, con una mezcla de ataques cuerpo a cuerpo y disparos. Los jugadores pueden realizar una variedad de movimientos básicos combinados con disparos.
+El juego se desarrolla en un plano bidimensional, lo que facilita la precisión en los movimientos y ataques. Los combates son rápidos e intensos. Los jugadores pueden realizar una variedad de movimientos básicos combinados con disparos.
 Elementos de disparos
 Los jugadores tienen acceso a armas de fuego y proyectiles que pueden usar para atacar a distancia. Estas armas añaden una capa extra de estrategia, ya que los jugadores deben manejar los ataques a larga distancia. Los disparos permiten a los jugadores mantener a raya a sus oponentes y controlar el ritmo del combate, obligando a los oponentes a moverse constantemente y planificar sus ataques cuidadosamente.
 Plataformas
@@ -110,6 +200,9 @@ Los personajes podrán moverse en todas direcciones en un plano 2D, lo que permi
 Armamento
 Habrá una variedad de armas de fuego pertenecientes a cada personaje. Cada arma tiene características únicas, como la cadencia de tiro, el daño, el alcance y la velocidad de recarga. Los jugadores deben aprender a manejar eficazmente sus armas y considerar cuándo disparar y cuándo conservar munición. Algunas armas pueden ofrecer habilidades especiales, como proyectiles explosivos o disparos que atraviesan obstáculos.
 
+PowerUps
+Los power-ups de recuperación de vida juegan un papel crucial en la estrategia de supervivencia durante el combate. Estos power-ups, representados por iconos en forma de corazón, permiten a los jugadores recuperar un corazón de vida al ser recogidos. Aleatoriamente ubicados en los escenarios, estos ítems de curación brindan la oportunidad de reponerse durante intensos enfrentamientos. Los jugadores deben aprender a gestionar eficazmente su salud, evaluando cuándo arriesgarse para conseguir un power-up y cuándo priorizar otras tácticas de combate. La competencia por estos valiosos recursos puede cambiar el rumbo de una batalla, añadiendo una capa adicional de profundidad y emoción al juego.
+
 Supervivencia
 El objetivo del jugador será acabar con su rival, para ello deberá reducir la vida del enemigo a cero. Los corazones de vida de cada personaje se gastan cuando recibe daño de ataques directos o proyectiles. La gestión de la vida y la capacidad de evitar daños son cruciales para la supervivencia. Además, algunos niveles pueden incluir ítems de recuperación que restauran la vida, añadiendo una capa estratégica a la gestión de recursos durante el combate.
 
@@ -155,14 +248,15 @@ En resumen, la cámara estática en Payback juega un papel fundamental en la cre
 
 Periféricos
 Para jugar a Payback, el periférico esencial es el teclado. El teclado es fundamental para controlar los movimientos y acciones de los personajes de manera precisa y efectiva.
-El movimiento con el uso de teclas de dirección: Las teclas W, A, S, D se utilizan para mover al personaje en las cuatro direcciones:
+El movimiento con el uso de teclas de dirección: Las teclas W, A, D se utilizan para mover al personaje en las cuatro direcciones:
+En el caso del jugador 1:
 W: Saltar.
 A: Moverse a la izquierda.
-S: Agacharse o descender por plataformas.
 D: Moverse a la derecha.
-Alternativa: Las teclas de flecha (↑, ←, ↓, →) también pueden configurarse para los jugadores que prefieran esta disposición.
+En el caso del jugador 2:
+Las teclas de flecha (↑, ←, →) .
 También para realizar acciones de combate
-Disparo principal: La barra espaciadora se asigna para el ataque principal, que incluye disparar el arma principal del personaje.
+Disparo principal: La tecla f se asigna para el ataque principal del jugador 1 y la tecla p para el jugador 2, que dispara el arma principal del personaje.
 
 El teclado permite una entrada rápida y precisa, esencial para ejecutar movimientos complejos y ataques en tiempo real. Con múltiples teclas disponibles, los jugadores pueden acceder a una variedad de comandos sin necesidad de cambiar de periférico.
 La capacidad de reasignar teclas permite a los jugadores crear una configuración que se adapte mejor a su estilo de juego, aumentando la comodidad y la eficacia durante el combate.
@@ -170,20 +264,19 @@ La capacidad de reasignar teclas permite a los jugadores crear una configuració
 Controles
 En Payback, los controles del juego están diseñados para ser intuitivos y accesibles, proporcionando a los jugadores un manejo preciso y rápido durante el combate. La disposición de las teclas está optimizada para permitir una fluida ejecución de movimientos y acciones. 
 
-1. Movimiento
-W, A, S, D:
+Movimiento Jugador 1:
+W, A, D:
 W: Saltar.
 A: Moverse a la izquierda.
-S: Agacharse o descender por plataformas.
 D: Moverse a la derecha.
 
-Alternativa con flechas:
-Las teclas de flecha (↑, ←, ↓, →) pueden configurarse como una alternativa para los jugadores que prefieran esta disposición.
+Movimiento Jugador 2:
+Las teclas de flecha (↑, ←, →) servirán al jugador 2 para poder moverse por el mapa.
 
 Acciones de combate
-El disparo principal hace uso de la barra espaciadora: La elección de la barra espaciadora como botón de disparo permite un acceso rápido y cómodo durante el combate, asegurando que los jugadores puedan disparar sin retrasos.
+El disparo principal hace uso de la tecla f para el jugador 1 y la tecla p para el jugador 2: La elección de estos botones como botones de disparo permite un acceso rápido y cómodo durante el combate, asegurando que los jugadores puedan disparar sin retrasos.
 
-La configuración de controles de Payback utilizando la barra espaciadora como botón de disparo está diseñada para maximizar la rapidez y la comodidad del jugador. Esta disposición permite un control preciso de los movimientos y acciones, facilitando una jugabilidad fluida y estratégica. 
+La configuración de controles de Payback está diseñada para maximizar la rapidez y la comodidad del jugador. Esta disposición permite un control preciso de los movimientos y acciones, facilitando una jugabilidad fluida y estratégica. 
 
 Movimiento y físicas
 En Payback, el movimiento y las físicas son aspectos fundamentales que contribuyen a la jugabilidad dinámica y desafiante del juego. 
