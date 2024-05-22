@@ -463,7 +463,7 @@
 
                 //Cooldown
                 this.canShoot = true;
-                this.shootCooldown = 500; // Tiempo de enfriamiento en milisegundos
+                this.shootCooldown = 750; // Tiempo de enfriamiento en milisegundos
             }
 
             fireBalaP1(x, y, direccion) {
@@ -497,7 +497,7 @@
 
                 if (direction == 'left') {
                     this.flipX = true;
-                    this.body.reset(x-80, y);
+                    this.body.reset(x-20, y);
                     this.setVelocityX(-300);
                     this.anims.play('disp', true);
                     this.setOrigin(0, 0.5);
@@ -554,7 +554,7 @@
 
                 //Cooldown
                 this.canShoot = true;
-                this.shootCooldown = 500; // Tiempo de enfriamiento en milisegundos
+                this.shootCooldown = 750; // Tiempo de enfriamiento en milisegundos
             }
 
             fireBulletP2(x, y, direccion) {
@@ -587,7 +587,7 @@
 
                 if (direction == 'left') {
                     this.flipX = true;
-                    this.body.reset(x-100, y);
+                    this.body.reset(x-20, y);
                     this.setVelocityX(-300);
                     this.anims.play('disp', true);
                     this.setOrigin(0, 0.5);
