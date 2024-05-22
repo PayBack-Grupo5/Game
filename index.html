@@ -31,7 +31,7 @@
                 //Elementos de la escena
                 this.sky;
                 this.platforms;
-
+                
                 //Players
                 this.player1;
                 this.player2;
@@ -61,8 +61,6 @@
                 //Botón de pausa
                 this.pauseButtonContainer;
 
-                //Vida extra
-                this.lifeItem;
 
             }
 
@@ -92,20 +90,17 @@
 
                 this.load.spritesheet('disparo',
                     'assets/images/disparo2.png',
-                    { frameWidth: 254, frameHeight: 120 }
+                    { frameWidth: 254, frameHeight: 120 } 
                 );
                 //this.load.image('disparo', 'assets/images/disparo.jpeg');
 
                 //Imagenes de las vidas
-                this.load.image('vidas player1 4', 'assets/images/vidas roja 4.png');
                 this.load.image('vidas player1 3', 'assets/images/vidas roja 3.png');
                 this.load.image('vidas player1 2', 'assets/images/vidas roja 2.png');
                 this.load.image('vidas player1 1', 'assets/images/vidas roja 1.png');
-                this.load.image('vidas player2 4', 'assets/images/vidas azul 4.png');
                 this.load.image('vidas player2 3', 'assets/images/vidas azul 3.png');
                 this.load.image('vidas player2 2', 'assets/images/vidas azul 2.png');
                 this.load.image('vidas player2 1', 'assets/images/vidas azul 1.png');
-                this.load.image('vidas', 'assets/images/vidas.png');
 
                 //Boton de pausa
                 this.load.image('botonPausa', 'assets/images/pausa.png')
@@ -130,7 +125,7 @@
                 //Lo hacemos interactivo
                 this.pauseButtonContainer = this.add.container(400, 50, [this.pauseImage]);
                 this.pauseButtonContainer.setSize(this.pauseImage.height, this.pauseImage.width);
-                this.pauseButtonContainer.setInteractive();
+                this.pauseButtonContainer.setInteractive();       
 
                 if (this.pauseButtonContainer) {
                     this.pauseButtonContainer.on('pointerdown', () => {
@@ -161,10 +156,10 @@
                 this.platforms.create(400, 600, 'suelo').setScale(2).refreshBody();
 
                 //Colocamos las plataformas
-                this.platforms.create(195, 240, 'suelo').setDisplaySize(255, 32).refreshBody();
+                this.platforms.create(195, 240, 'suelo').setDisplaySize(255, 32).refreshBody(); 
                 this.platforms.create(140, 470, 'suelo').setDisplaySize(95, 32).refreshBody();
                 this.platforms.create(530, 300, 'suelo').setDisplaySize(125, 25).refreshBody();
-                this.platforms.create(750, 400, 'suelo').setDisplaySize(110, 25).refreshBody();
+                this.platforms.create(750, 400, 'suelo').setDisplaySize(110, 25).refreshBody(); 
                 this.platforms.create(400, 430, 'suelo').setDisplaySize(125, 20).refreshBody();
                 this.platforms.create(450, 200, 'suelo').setDisplaySize(100, 25).refreshBody();
                 this.platforms.create(550, 450, 'suelo').setDisplaySize(150, 25).refreshBody();
@@ -183,13 +178,6 @@
                 this.imgvidasply2 = this.add.image(700, 40, 'vidas player2 3').setDepth(2).setDisplaySize(260, 260);
                 this.imgvidasply2.flipX = true;
 
-                //Creamos el corazon de vida extra
-                this.lifeItems = this.physics.add.group();
-                this.time.delayedCall(10000, this.createLifeItem, [], this);
-
-                //Solo aparece una en toda la partida
-                this.lifeItemAppeared = false;
-
                 //Colocamos al player1
                 this.player1 = this.physics.add.sprite(500, 500, 'personaje1');
                 this.player1.setDisplaySize(32, 48);
@@ -206,7 +194,7 @@
                 //Animaciones del player1
                 this.anims.create({
                     key: 'play1right',
-                    frames: this.anims.generateFrameNumbers('personaje1', { start: 0, end: 4 }),
+                    frames: this.anims.generateFrameNumbers('personaje1', { start: 0, end: 4}),
                     frameRate: 10,
                     repeat: -1
                 });
@@ -276,22 +264,19 @@
                 this.physics.add.collider(this.disparosP2, this.player1, this.hitPlayer1, null, this);
                 this.physics.add.collider(this.disparosP1, this.platforms);
                 this.physics.add.collider(this.disparosP2, this.platforms);
-                // Collider con los jugadores y las vidas
-                this.physics.add.overlap(this.lifeItem, this.player1, this.hitLifeItem1, null, this);
-                this.physics.add.overlap(this.lifeItem, this.player2, this.hitLifeItem2, null, this);
 
                 this.vidasply1 = 3;
-                this.vidasply2 = 3;
+                this.vidasply2 = 3;                
             }
 
             //Metodo para disparo de player1
             shootdisparoP1(xpos, ypos, direc) {
-                this.disparosP1.fireBalaP1(xpos, ypos, direc);
+                this.disparosP1.fireBalaP1(xpos, ypos, direc);                
                 this.sound.play('myGunSound');
             }
             //Metodo para disparo de player2
             shootdisparoP2(xpos, ypos, direc) {
-                this.disparosP2.fireBulletP2(xpos, ypos, direc);
+                this.disparosP2.fireBulletP2(xpos, ypos, direc);                
                 this.sound.play('myGunSound');
             }
 
@@ -366,7 +351,7 @@
                 }
 
                 //Disparo del player 2
-                if ((Phaser.Input.Keyboard.JustDown(this.keyP))) {
+                if ((Phaser.Input.Keyboard.JustDown(this.keyP))) { 
                     if (this.player1.body.touching.left & this.lastP1direction == 'left') {
 
                     }
@@ -421,86 +406,20 @@
 
             }
 
-            createLifeItem() {
-                if (!this.lifeItemAppeared) {
-                    const x = Phaser.Math.Between(100, 700);
-                    const y = Phaser.Math.Between(100, 500);
-                    this.lifeItem = this.lifeItems.create(x, y, 'vidas');
-                    this.lifeItem.setDisplaySize(50, 50);
-
-                    // Collider con el suelo
-                    this.physics.add.collider(this.lifeItem, this.platforms);
-
-                }
-            }
-
-            hitLifeItem1(lifeItem, player) {
-                lifeItem.destroy(); // Elimina el corazón del juego
-                player.extraLife = true; // Establece la vida extra al jugador
-                this.updateLifeImages1(player);
-            }
-
-            hitLifeItem2(lifeItem, player) {
-                lifeItem.destroy(); // Elimina el corazón del juego
-                player.extraLife = true; // Establece la vida extra al jugador
-                this.updateLifeImages2(player);
-            }
-
-            updateLifeImages1(player) {  
-                if (this.vidasply2 == 3) {
-                    this.vidasply2++;
-                    const vidaImageKey = player.extraLife ? 'vidas player2 4' : 'vidas player2 3'; // Usar el sprite de corazón si tiene vida extra
-                    const vidaImage = this.add.image(700, 40, vidaImageKey).setDepth(2).setDisplaySize(260, 260);
-                    vidaImage.flipX = true;
-                } else if (this.vidasply2 == 2) {
-                    this.vidasply2++;
-                    const vidaImageKey = player.extraLife ? 'vidas player2 3' : 'vidas player2 2'; // Usar el sprite de corazón si tiene vida extra
-                    const vidaImage = this.add.image(700, 40, vidaImageKey).setDepth(2).setDisplaySize(260, 260);
-                    vidaImage.flipX = true;
-                } else if (this.vidasply2 == 1) {
-                    this.vidasply2++;
-                    const vidaImageKey = player.extraLife ? 'vidas player2 2' : 'vidas player2 1'; // Usar el sprite de corazón si tiene vida extra
-                    const vidaImage = this.add.image(700, 40, vidaImageKey).setDepth(2).setDisplaySize(260, 260);
-                    vidaImage.flipX = true;
-                }
-            }
-
-            updateLifeImages2(player) {
-                if (this.vidasply1 == 3) {
-                    this.vidasply1++;
-                    const vidaImageKey = player.extraLife ? 'vidas player1 4' : 'vidas player1 3'; // Usar el sprite de corazón si tiene vida extra
-                    const vidaImage = this.add.image(100, 40, vidaImageKey).setDepth(2).setDisplaySize(260, 260);
-                    vidaImage.flipX = false;
-                } else if (this.vidasply1 == 2) {
-                    this.vidasply1++;
-                    const vidaImageKey = player.extraLife ? 'vidas player1 3' : 'vidas player1 2'; // Usar el sprite de corazón si tiene vida extra
-                    const vidaImage = this.add.image(100, 40, vidaImageKey).setDepth(2).setDisplaySize(260, 260);
-                    vidaImage.flipX = false;
-                } else if (this.vidasply1 == 1) {
-                    this.vidasply1++;
-                    const vidaImageKey = player.extraLife ? 'vidas player1 2' : 'vidas player1 1'; // Usar el sprite de corazón si tiene vida extra
-                    const vidaImage = this.add.image(100, 40, vidaImageKey).setDepth(2).setDisplaySize(260, 260);
-                    vidaImage.flipX = false;
-                }
-            }
-
+            
             //Cuando del player 1 es impactado se resta una vida y se sobre pone el sprite de la vida que tiene
             hitPlayer1(disparosP2, player) {
                 if (this.vidasply2 > 0) {
                     this.vidasply2 = this.vidasply2 - 1;
                     this.impactoP1 = true;
-                    if (this.vidasply2 == 3){
-                        this.imgvidasply2 = this.add.image(700, 40, 'vidas player2 3').setDepth(2).setDisplaySize(260, 260);
-                        this.imgvidasply2.flipX = true;
-                    }
                     if (this.vidasply2 == 2) {
                         this.imgvidasply2 = this.add.image(700, 40, 'vidas player2 2').setDepth(2).setDisplaySize(260, 260);
                         this.imgvidasply2.flipX = true;
 
                     }
-                    if (this.vidasply2 == 1) {
+                    if (this.vidasply2 == 1) {                        
                         this.imgvidasply2 = this.add.image(700, 40, 'vidas player2 1').setDepth(2).setDisplaySize(260, 260);
-                        this.imgvidasply2.flipX = true;
+                        this.imgvidasply2.flipX = true;                       
 
                     }
                 }
@@ -516,11 +435,6 @@
                 if (this.vidasply1 > 0) {
                     this.vidasply1 = this.vidasply1 - 1;
                     this.impactoP2 = true;
-                    if (this.vidasply1 == 3) {
-                        this.imgvidasply1 = this.add.image(100, 40, 'vidas player1 3').setDepth(2).setDisplaySize(260, 260);
-                        this.imgvidasply1.flipX = false;
-
-                    }
                     if (this.vidasply1 == 2) {
                         this.imgvidasply1 = this.add.image(100, 40, 'vidas player1 2').setDepth(2).setDisplaySize(260, 260);
                         this.imgvidasply1.flipX = false;
@@ -539,9 +453,9 @@
                     this.gameOver = true;
                 }
             }
+
         }
-
-
+        
         //Disparos del player 1
         class Player1BulletGroup extends Phaser.Physics.Arcade.Group {
             constructor(scene) {
@@ -562,22 +476,22 @@
             }
 
             fireBalaP1(x, y, direccion) {
-                if (this.canShoot) {
+                if(this.canShoot){
                     const bala = this.getFirstDead(false);
                     if (bala) {
                         bala.fireP1(x, y, direccion);
                         // Después de disparar, iniciar el cooldown
                         this.canShoot = false;
                         this.scene.time.addEvent({
-                            delay: this.shootCooldown,
-                            callback: () => {
-                                this.canShoot = true;
-                            },
-                            callbackScope: this
+                        delay: this.shootCooldown,
+                        callback: () => {
+                            this.canShoot = true;
+                        },
+                        callbackScope: this
                         });
                     }
                 }
-
+                
             }
 
 
@@ -592,14 +506,14 @@
 
                 if (direction == 'left') {
                     this.flipX = true;
-                    this.body.reset(x - 20, y);
+                    this.body.reset(x-20, y);
                     this.setVelocityX(-300);
                     this.anims.play('disp', true);
                     this.setOrigin(0, 0.5);
 
-                } else if (direction == 'right') {
+                }else if (direction == 'right') {
                     this.flipX = false;
-                    this.body.reset(x - 20, y);
+                    this.body.reset(x-20, y);
                     this.setVelocityX(300);
                     this.setDepth(-1);
                     this.anims.play('disp', true);
@@ -653,18 +567,18 @@
             }
 
             fireBulletP2(x, y, direccion) {
-                if (this.canShoot) {
+                if(this.canShoot){
                     const bala = this.getFirstDead(false);
                     if (bala) {
                         bala.fireP2(x, y, direccion);
                         // Después de disparar, iniciar el cooldown
                         this.canShoot = false;
                         this.scene.time.addEvent({
-                            delay: this.shootCooldown,
-                            callback: () => {
-                                this.canShoot = true;
-                            },
-                            callbackScope: this
+                        delay: this.shootCooldown,
+                        callback: () => {
+                            this.canShoot = true;
+                        },
+                        callbackScope: this
                         });
                     }
                 }
@@ -682,7 +596,7 @@
 
                 if (direction == 'left') {
                     this.flipX = true;
-                    this.body.reset(x - 20, y);
+                    this.body.reset(x-20, y);
                     this.setVelocityX(-300);
                     this.anims.play('disp', true);
                     this.setOrigin(0, 0.5);
@@ -690,7 +604,7 @@
                 }
                 if (direction == 'right') {
                     this.flipX = false;
-                    this.body.reset(x - 20, y);
+                    this.body.reset(x-20, y);
                     this.setVelocityX(300);
                     this.anims.play('disp', true);
                     this.setOrigin(0, 0.5);
@@ -804,7 +718,7 @@
                 this.creditsButtonContainer.on('pointerout', function () {
                     creditsButton.setScale(1);
                 });
-
+                
                 // Si pulsamos, nos lleva a la escena de controles
                 this.contrlButtonContainer.on('pointerdown', function () {
                     this.scene.scene.bringToTop('ContrlScene');
@@ -885,7 +799,7 @@
                     this.scene.scene.sleep('PauseMenuScene');
                     this.scene.scene.resume('GameScene');
                 })
-
+                
                 if (this.resumeButtonContainer && this.resumeButton) {
                     this.resumeButtonContainer.on('pointerover', () => {
                         this.resumeButton.setScale(1.2);
@@ -901,7 +815,7 @@
                     this.scene.scene.bringToTop('MainMenuScene');
                     this.scene.scene.start('MainMenuScene');
                 })
-
+                
                 if (this.exitButtonContainer && this.exitButton) {
                     this.exitButtonContainer.on('pointerover', () => {
                         this.exitButton.setScale(1.2);
@@ -1017,8 +931,8 @@
                 })
             }
         }
-
-        class CreditScene extends Phaser.Scene {
+    
+        class CreditScene extends Phaser.Scene{
             constructor() {
                 super('CreditScene');
                 //Elementos de la escena final
@@ -1060,10 +974,10 @@
                     botonVolver.setScale(1);
                 })
             }
-
+            
         }
 
-        class ContrlScene extends Phaser.Scene {
+        class ContrlScene extends Phaser.Scene{
             constructor() {
                 super('ContrlScene');
                 //Elementos de la escena final
@@ -1105,7 +1019,7 @@
                     botonVolver.setScale(1);
                 })
             }
-
+            
         }
 
         class TutorialScene extends Phaser.Scene {
@@ -1126,7 +1040,7 @@
                 // Añadir la imagen de fondo
                 this.background = this.add.image(400, 300, 'tutorialBackground').setDepth(-1).setScale(2.4);
 
-                // Estilo de texto
+                 // Estilo de texto
                 const textStyle = { fontSize: '24px', fill: '#FFA500', fontWeight: 'bold' };
 
                 // Añadir texto de instrucciones
@@ -1175,13 +1089,13 @@
             },
             autoCenter: false,
 
-            scene: [MainMenuScene, EscenaJuego, PauseMenuScene, VictoryScenePlayer1, VictoryScenePlayer2, CreditScene, ContrlScene, TutorialScene],
+            scene: [MainMenuScene, EscenaJuego, PauseMenuScene , VictoryScenePlayer1, VictoryScenePlayer2, CreditScene, ContrlScene, TutorialScene],
         };
 
         var game = new Phaser.Game(config);
 
 
-
+        
     </script>
 
 </body>
