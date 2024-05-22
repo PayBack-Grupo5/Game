@@ -254,6 +254,7 @@
                 this.keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
                 this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
                 this.keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
+                this.keyEsc = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
 
                 //Disparos 
                 this.disparosP1 = new Player1BulletGroup(this);
@@ -326,6 +327,14 @@
 
                 if (this.cursors.up.isDown && this.player1.body.touching.down) {
                     this.player1.setVelocityY(-500);
+                }
+                //Menu de pausa
+                if ((Phaser.Input.Keyboard.JustDown(this.keyEsc))) {
+                    if (this.scene && this.scene.wake && this.scene.pause) {
+                        this.scene.wake('PauseMenuScene');
+                        this.scene.bringToTop('PauseMenuScene');
+                        this.scene.pause('GameScene');
+                    }
                 }
 
                 //Disparo del player 1
@@ -504,7 +513,7 @@
 
                 }else if (direction == 'right') {
                     this.flipX = false;
-                    this.body.reset(x, y);
+                    this.body.reset(x-20, y);
                     this.setVelocityX(300);
                     this.setDepth(-1);
                     this.anims.play('disp', true);
@@ -595,7 +604,7 @@
                 }
                 if (direction == 'right') {
                     this.flipX = false;
-                    this.body.reset(x, y);
+                    this.body.reset(x-20, y);
                     this.setVelocityX(300);
                     this.anims.play('disp', true);
                     this.setOrigin(0, 0.5);
@@ -637,6 +646,7 @@
                 this.playButtonContainer;
                 this.creditsButtonContainer;
                 this.contrlButtonContainer;
+                this.tutorialButtonContainer;
             }
 
             preload() {
@@ -645,6 +655,7 @@
                 this.load.image('playButton', 'assets/images/botonJugar.png');
                 this.load.image('creditsButton', 'assets/images/botonCredits.png');
                 this.load.image('contrlButton', 'assets/images/botonContrl.png');
+                this.load.image('tutorialButton', 'assets/images/botonTutorial.png');
             }
 
             create() {
@@ -655,19 +666,24 @@
                 const playButton = this.add.image(0, 0, 'playButton');
                 const creditsButton = this.add.image(0, 0, 'creditsButton');
                 const contrlButton = this.add.image(0, 0, 'contrlButton');
+                const tutorialButton = this.add.image(0, 0, 'tutorialButton');
 
                 // Hacemos que el botón sea interactivo
                 this.playButtonContainer = this.add.container(400, 450, [playButton]);
-                this.playButtonContainer.setSize(playButton.height, playButton.width);
+                this.playButtonContainer.setSize(playButton.width, playButton.height);
                 this.playButtonContainer.setInteractive();
                 // Hacemos que el botón sea interactivo
                 this.creditsButtonContainer = this.add.container(400, 550, [creditsButton]);
-                this.creditsButtonContainer.setSize(creditsButton.height, creditsButton.width);
+                this.creditsButtonContainer.setSize(creditsButton.width, creditsButton.height);
                 this.creditsButtonContainer.setInteractive();
                 // Hacemos que el botón sea interactivo
-                this.contrlButtonContainer = this.add.container(700, 50, [contrlButton]);
-                this.contrlButtonContainer.setSize(contrlButton.height, contrlButton.width);
+                this.contrlButtonContainer = this.add.container(700, 100, [contrlButton]);
+                this.contrlButtonContainer.setSize(contrlButton.width, contrlButton.height);
                 this.contrlButtonContainer.setInteractive();
+                // Hacemos que el botón sea interactivo
+                this.tutorialButtonContainer = this.add.container(100, 100, [tutorialButton]);
+                this.tutorialButtonContainer.setSize(tutorialButton.width, tutorialButton.height);
+                this.tutorialButtonContainer.setInteractive();
 
                 // Si pulsamos, nos lleva a la escena de juego
                 this.playButtonContainer.on('pointerdown', function () {
@@ -717,6 +733,21 @@
                 // Restaura la escala normal del botón al quitar el puntero
                 this.contrlButtonContainer.on('pointerout', function () {
                     contrlButton.setScale(1);
+                });
+
+                // Si pulsamos, nos lleva a la escena de tutorial
+                this.tutorialButtonContainer.on('pointerdown', function () {
+                    this.scene.start('TutorialScene');
+                }, this);
+
+                // Resalta el botón al pasar el puntero sobre él
+                this.tutorialButtonContainer.on('pointerover', function () {
+                    tutorialButton.setScale(1.5);
+                });
+
+                // Restaura la escala normal del botón al quitar el puntero
+                this.tutorialButtonContainer.on('pointerout', function () {
+                    tutorialButton.setScale(1);
                 });
             }
         }
@@ -989,6 +1020,60 @@
             }
             
         }
+
+        class TutorialScene extends Phaser.Scene {
+            constructor() {
+                super({ key: 'TutorialScene' });
+                // Elementos de la escena de tutorial
+                this.background;
+                this.backButtonContainer;
+            }
+
+            preload() {
+                // Cargar imágenes de fondo y botón
+                this.load.image('tutorialBackground', 'assets/images/nocheEstrellas.jpg');
+                this.load.image('backButton', 'assets/images/reiniciar.png');
+            }
+
+            create() {
+                // Añadir la imagen de fondo
+                this.background = this.add.image(400, 300, 'tutorialBackground').setDepth(-1).setScale(2.4);
+
+                 // Estilo de texto
+                const textStyle = { fontSize: '24px', fill: '#FFA500', fontWeight: 'bold' };
+
+                // Añadir texto de instrucciones
+                this.add.text(400, 150, 'Cómo jugar:', { fontSize: '32px', fill: '#FFA500', fontWeight: 'bold' }).setOrigin(0.5);
+                this.add.text(400, 250, '1. Evita que acaben con tus vidas', textStyle).setOrigin(0.5);
+                this.add.text(400, 300, '2. Acaba con las vidas del rival', textStyle).setOrigin(0.5);
+                this.add.text(400, 350, '3. Repito, no mueras, con eso vale :)', textStyle).setOrigin(0.5);
+
+                // Añadir el botón de regresar
+                const backButton = this.add.image(0, 0, 'backButton');
+
+                // Hacer que el botón sea interactivo
+                this.backButtonContainer = this.add.container(400, 500, [backButton]);
+                this.backButtonContainer.setSize(backButton.width, backButton.height);
+                this.backButtonContainer.setInteractive();
+
+                // Si pulsamos, nos lleva de vuelta al menú principal
+                this.backButtonContainer.on('pointerdown', function () {
+                    this.scene.start('MainMenuScene');
+                }, this);
+
+                // Resalta el botón al pasar el puntero sobre él
+                this.backButtonContainer.on('pointerover', function () {
+                    backButton.setScale(1.5);
+                });
+
+                // Restaura la escala normal del botón al quitar el puntero
+                this.backButtonContainer.on('pointerout', function () {
+                    backButton.setScale(1);
+                });
+            }
+        }
+
+
         //Config del tutorial reusado para el juego
         var config = {
             type: Phaser.AUTO,
@@ -1003,7 +1088,7 @@
             },
             autoCenter: false,
 
-            scene: [MainMenuScene, EscenaJuego, PauseMenuScene , VictoryScenePlayer1, VictoryScenePlayer2, CreditScene, ContrlScene],
+            scene: [MainMenuScene, EscenaJuego, PauseMenuScene , VictoryScenePlayer1, VictoryScenePlayer2, CreditScene, ContrlScene, TutorialScene],
         };
 
         var game = new Phaser.Game(config);
