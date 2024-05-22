@@ -737,8 +737,9 @@
 
                 // Si pulsamos, nos lleva a la escena de tutorial
                 this.tutorialButtonContainer.on('pointerdown', function () {
-                    this.scene.start('TutorialScene');
-                }, this);
+                    this.scene.scene.bringToTop('TutorialScene');
+                    this.scene.scene.launch('TutorialScene');
+                });
 
                 // Resalta el botón al pasar el puntero sobre él
                 this.tutorialButtonContainer.on('pointerover', function () {
