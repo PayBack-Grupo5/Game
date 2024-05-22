@@ -185,6 +185,7 @@
 
                 //Creamos el corazon de vida extra
                 this.lifeItems = this.physics.add.group();
+                //this.createLifeItem();
                 this.time.delayedCall(10000, this.createLifeItem, [], this);
 
                 //Solo aparece una en toda la partida
@@ -277,8 +278,7 @@
                 this.physics.add.collider(this.disparosP1, this.platforms);
                 this.physics.add.collider(this.disparosP2, this.platforms);
                 // Collider con los jugadores y las vidas
-                this.physics.add.overlap(this.lifeItem, this.player1, this.hitLifeItem1, null, this);
-                this.physics.add.overlap(this.lifeItem, this.player2, this.hitLifeItem2, null, this);
+
 
                 this.vidasply1 = 3;
                 this.vidasply2 = 3;
@@ -431,6 +431,9 @@
                     // Collider con el suelo
                     this.physics.add.collider(this.lifeItem, this.platforms);
 
+                    this.physics.add.overlap(this.lifeItem, this.player1, this.hitLifeItem1, null, this);
+                    this.physics.add.overlap(this.lifeItem, this.player2, this.hitLifeItem2, null, this);
+
                 }
             }
 
@@ -446,7 +449,7 @@
                 this.updateLifeImages2(player);
             }
 
-            updateLifeImages1(player) {  
+            updateLifeImages1(player) {
                 if (this.vidasply2 == 3) {
                     this.vidasply2++;
                     const vidaImageKey = player.extraLife ? 'vidas player2 4' : 'vidas player2 3'; // Usar el sprite de corazón si tiene vida extra
@@ -489,7 +492,7 @@
                 if (this.vidasply2 > 0) {
                     this.vidasply2 = this.vidasply2 - 1;
                     this.impactoP1 = true;
-                    if (this.vidasply2 == 3){
+                    if (this.vidasply2 == 3) {
                         this.imgvidasply2 = this.add.image(700, 40, 'vidas player2 3').setDepth(2).setDisplaySize(260, 260);
                         this.imgvidasply2.flipX = true;
                     }
