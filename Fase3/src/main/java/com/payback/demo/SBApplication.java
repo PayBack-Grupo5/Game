@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Payback{
+public class SpringBootApplication{
 	
 	public static void main(String[] args) {
-		SpringApplication.run(Payback.class, args);
+		SpringApplication.run(SpringBootApplication.class, args);
 	}
 	
 }
