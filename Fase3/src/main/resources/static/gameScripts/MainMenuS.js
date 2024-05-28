@@ -16,7 +16,7 @@ class MainMenuScene extends Phaser.Scene {
         this.load.image('playButton', 'assets/images/botonJugar.png');
         this.load.image('creditsButton', 'assets/images/botonCredits.png');
         this.load.image('contrlButton', 'assets/images/botonContrl.png');
-        this.load.image('chat', 'assets/images/botonChat.png');
+        this.load.image('chatButton', 'assets/images/botonChat.png');
         this.load.image('tutorialButton', 'assets/images/botonTutorial.png');
     }
 
@@ -29,14 +29,14 @@ class MainMenuScene extends Phaser.Scene {
         const creditsButton = this.add.image(0, 0, 'creditsButton');
         const contrlButton = this.add.image(0, 0, 'contrlButton');
         const tutorialButton = this.add.image(0, 0, 'tutorialButton');
-        const chatButton = this.add.image(0, 0, 'chat');
+        const chatButton = this.add.image(0, 0, 'chatButton');
 
         // Hacemos que el botón sea interactivo
         this.playButtonContainer = this.add.container(400, 450, [playButton]);
         this.playButtonContainer.setSize(playButton.width, playButton.height);
         this.playButtonContainer.setInteractive();
         // Hacemos que el botón sea interactivo
-        this.creditsButtonContainer = this.add.container(400, 550, [creditsButton]);
+        this.creditsButtonContainer = this.add.container(100, 550, [creditsButton]);
         this.creditsButtonContainer.setSize(creditsButton.width, creditsButton.height);
         this.creditsButtonContainer.setInteractive();
         // Hacemos que el botón sea interactivo
@@ -48,10 +48,10 @@ class MainMenuScene extends Phaser.Scene {
         this.tutorialButtonContainer.setSize(tutorialButton.width, tutorialButton.height);
         this.tutorialButtonContainer.setInteractive();
         // Hacemos que el botón sea interactivo
-        this.botonDetectChat = this.add.container(550, 500, [chatButton]);
-        this.botonDetectChat.setSize(this.botonChat.height, this.botonChat.width);
-        this.botonDetectChat.setInteractive();
-        this.botonDetectChat.setScale(0.1);
+        this.chatButtonContainer = this.add.container(700, 550, [chatButton]);
+        this.chatButtonContainer.setSize(chatButton.width, chatButton.height);
+        this.chatButtonContainer.setInteractive();
+        //this.chatButtonContainer.setScale(0.1);
 
 
 
@@ -122,19 +122,19 @@ class MainMenuScene extends Phaser.Scene {
         });
 
         // Si pulsamos, nos lleva a la escena de chat
-        this.botonDetectChat.on('pointerdown', function () {
+        this.chatButtonContainer.on('pointerdown', function () {
             this.scene.scene.bringToTop('LobbyScene');
             this.scene.scene.launch('LobbyScene');
         });
 
         // Resalta el botón al pasar el puntero sobre él
-        this.botonDetectChat.on('pointerover', function () {
-            tutorialButton.setScale(1.5);
+        this.chatButtonContainer.on('pointerover', function () {
+            chatButton.setScale(1.5);
         });
 
         // Restaura la escala normal del botón al quitar el puntero
-        this.botonDetectChat.on('pointerout', function () {
-            tutorialButton.setScale(1);
+        this.chatButtonContainer.on('pointerout', function () {
+            chatButton.setScale(1);
         });
         
     }
