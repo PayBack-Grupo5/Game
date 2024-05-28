@@ -36,7 +36,7 @@ class MainMenuScene extends Phaser.Scene {
         this.playButtonContainer.setSize(playButton.width, playButton.height);
         this.playButtonContainer.setInteractive();
         // Hacemos que el botón sea interactivo
-        this.creditsButtonContainer = this.add.container(400, 550, [creditsButton]);
+        this.creditsButtonContainer = this.add.container(100, 550, [creditsButton]);
         this.creditsButtonContainer.setSize(creditsButton.width, creditsButton.height);
         this.creditsButtonContainer.setInteractive();
         // Hacemos que el botón sea interactivo
@@ -48,7 +48,7 @@ class MainMenuScene extends Phaser.Scene {
         this.tutorialButtonContainer.setSize(tutorialButton.width, tutorialButton.height);
         this.tutorialButtonContainer.setInteractive();
         // Hacemos que el botón sea interactivo
-        this.chatButtonContainer = this.add.container(550, 500, [chatButton]);
+        this.chatButtonContainer = this.add.container(700, 550, [chatButton]);
         this.chatButtonContainer.setSize(chatButton.width, chatButton.height);
         this.chatButtonContainer.setInteractive();
         //this.chatButtonContainer.setScale(0.1);
