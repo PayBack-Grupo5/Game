@@ -11,7 +11,7 @@ var config = {
     },
     autoCenter: false,
 
-    scene: [MainMenuScene, EscenaJuego, PauseMenuScene, VictoryScenePlayer1, VictoryScenePlayer2, CreditScene, ContrlScene, TutorialScene],
+    scene: [MainMenuScene, EscenaJuego, PauseMenuScene, VictoryScenePlayer1, VictoryScenePlayer2, CreditScene, ContrlScene, TutorialScene, EscenaLobby],
 };
 
 var game = new Phaser.Game(config);
