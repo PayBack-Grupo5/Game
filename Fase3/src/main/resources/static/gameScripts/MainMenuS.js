@@ -123,8 +123,8 @@ class MainMenuScene extends Phaser.Scene {
 
         // Si pulsamos, nos lleva a la escena de chat
         this.chatButtonContainer.on('pointerdown', function () {
-            this.scene.scene.bringToTop('LobbyScene');
-            this.scene.scene.launch('LobbyScene');
+            this.scene.scene.bringToTop('Lobby');
+            this.scene.scene.launch('Lobby');
         });
 
         // Resalta el botón al pasar el puntero sobre él

@@ -8,44 +8,41 @@ class Lobby extends Phaser.Scene{
     }
 
     preload(){
-        this.load.html("form", "form.html");
-        this.load.image('titleBackground', 'assets/images/titulo.jpeg');
+        this.load.html('form', 'form.html');
+        this.load.image('background', 'assets/images/nocheEstrellas.jpg');
+        this.load.image('botonReiniciar', 'assets/images/reiniciar.png');
     }
 
     create(){
+
+        //Colocamos el botón
+        var botonVolver = this.add.image(0, 0, 'botonReiniciar');
+        //Lo hacemos interactivo
+        this.returnButtonContainer = this.add.container(700, 550, [botonVolver]);
+        this.returnButtonContainer.setSize(botonVolver.height, botonVolver.width);
+        this.returnButtonContainer.setInteractive();
+
+        this.returnButtonContainer.on('pointerdown', function () {
+            this.scene.scene.bringToTop('MainMenuScene');
+            this.scene.scene.start('MainMenuScene');
+        })
+        //Highlight
+        this.returnButtonContainer.on('pointerover', function () {
+            botonVolver.setScale(1.2);
+        })
+
+        this.returnButtonContainer.on('pointerout', function () {
+            botonVolver.setScale(1);
+        })
 		
 		this.idOfExitedPlayer = 0;
 		this.returnKey =  this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
-		this.add.image(0,0,"scenelobby").setOrigin(0);
+		this.add.image(0,0,"background").setOrigin(0).setScale(2.4);;
 		this.style = { font: "15px OCR A", fill: "#FFFFFF" };
         this.nameInput = this.add.dom(400, 325).createFromCache("form");
 
-        setInterval(function loadChat() {
-            $('#chat').empty();
-            $.ajax({
-               method: "GET",
-               url: window.location.href + 'lobby'
-           }).done(function (chat) {
-               for (var i = 0; i < chat.length; i++) {
-                   var style = '';
-                   $('#chat').append('<div><span ' + style + '>' + chat[i] +'</span>')
-               }
-           });
-        },3000);
-
-        setInterval(function loadPlayers(callback) {
-            $('#info-players').empty();
-            $.ajax({
-                url: window.location.href + 'lobby/jugadores'
-            }).done(function (Player) {
-                console.log('Jugadores Conectados: ' + JSON.stringify(Player));
-                for (var i = 0; i < Player.length; i++) {
-                    showPlayer(Player[i]);
-                }
-            })
-        },3000);
-
-        function Players(){
+        //Metodo GET para recibir numero de jugadores
+        function Players() {
             $.ajax({
                 method: "GET",
                 url: window.location.href + 'lobby/valor',
@@ -55,7 +52,8 @@ class Lobby extends Phaser.Scene{
             })
         }
 
-        //Create player in server
+
+        //Crear jugadores
         function createPlayer(player, callback) {
             playerCount++;
             console.log(playerCount);
@@ -70,14 +68,60 @@ class Lobby extends Phaser.Scene{
             }).done(function (player) {
                 var style = '';
                 console.log("Se ha unido el siguiente jugador: " + JSON.stringify(player));
+
                 id = player.id;
+
                 callback(player);
                 $('#info-players').append(
-                    '<div><span ' + style + '>' + "Se ha conectado el " + player.name + id +
+                    '<div><span ' + style + '>' + "Espera " + player.username + ", te estás conectado..." +
                     '</span>')
             })
         }
 
+        //Mostrar jugadores conectados
+        function showPlayer(player) {
+            var style = 'color:red';
+            $('#info-players').append(
+                '<div id="' + playerUsername + '"><span ' + style + '>' + player.username +
+                " esta online " + '</span>')
+        }
+
+        //Metodo GET para jugador
+        setInterval(function getJugador(total) {
+            for (var i = 0; i <= total; i++) {
+                $.ajax({
+                    method: 'GET',
+                    url: window.location.href + 'lobby/' + i
+                }).done(function (player) {
+                    console.log("Jugador " + JSON.stringify(player))
+                })
+                    .fail(function () {
+                        console.log("Jugador con id " + i + " no encontrado")
+                    })
+            }
+        }, 3000)
+
+        //Borrar jugador segun su id
+        function deletePlayer(playerId) {
+            playerCount--;
+            $.ajax({
+                method: 'DELETE',
+                url: window.location.href + 'lobby/' + playerId
+            }).done(function (player) {
+                var style = "";
+                this.idOfExitedPlayer = playerId;
+                console.log("Se ha salido del lobby el siguiente jugador: " + JSON.stringify(player));
+                $('#info-players').append(
+                    '<div><span ' + style + '>' + "Desconectando..." +
+                    '</span>')
+            })
+        }
+
+        ////////////////////
+        //////MENSAJES//////
+        ////////////////////
+
+        //Crear mensaje
         function createMessage(message, callback) {
             $.ajax({
                 method: "POST",
@@ -88,96 +132,92 @@ class Lobby extends Phaser.Scene{
                     "Content-Type": "application/json"
                 }
             }).done(function (message) {
+
                 console.log("Se ha escrito el siguiente mensaje: " + JSON.stringify(message));
                 callback(message);
             })
         }
 
-        //Get Player
-        setInterval(function getJugador(total) {
-            for (var i = 0; i <= total; i++) {
-                $.ajax({
-                    method: 'GET',
-                    url: window.location.href + 'lobby/' + i
-                }).done(function (player) {
-                    console.log("Jugador " + JSON.stringify(player))
-                })
-                .fail(function () {
-                    console.log("Jugador con id " + i + " no encontrado")
-                })
-            }
-        }, 3000)
-
-        //Delete player from server 
-        function deletePlayer(playerId) {
-            playerCount--;
-            $.ajax({
-                method: 'DELETE',
-                url: window.location.href + 'lobby/' + playerId
-            }).done(function (jugador) {
-                var style = "";
-                this.idOfExitedPlayer = playerId;
-                console.log("Se ha salido del lobby el siguiente jugador: " + JSON.stringify(player));
-                $('#info-players').append(
-                    '<div><span ' + style + '>' + "El jugador " + playerId + " se ha desconectado" +
-                    '</span>')
-            })
-        }
-
-        //Show player connection
-        function showPlayer(player) {
-            var style = '';
-            $('#info-players').append(
-                '<div id="jugador-' + player.id + '"><span ' + style + '>' + player.name + " " + player.id +
-                " esta online " + '</span>')
-        }
-
-        // Show message
+        //Mostrar mensaje
         function showMessage(message) {
-            var style = '';
             $('#chat').append(
-                '<div><span>' + message.content +
+                '<div style="color:white"><span >' + message.content +
                 '</span>')
         }
 
+
+        //Gestion de botones para conectarse al servidor, desconectarse y mandar un mensaje
         $(document).ready(function () {
-            var player = {
-                name: "Jugador"
-            }
-            createPlayer(player, function (Jugador) {
-                //When item with id is returned from server
-                showPlayer(Jugador);
+            $("#button-connect").click(function () {
+
+                //Mostrar boton desconectar, input y boton enviar
+                document.getElementById('divDisconnect').style.display = 'inline-block';
+
+                var test_username = document.querySelector('#info-players');
+                var uName = test_username.querySelector('input[name="username"]').value;
+                playerUsername = uName
+                var player = {
+                    username: uName.value
+                }
+                player.username = playerUsername;
+                createPlayer(player, function (player) {
+                    showPlayer(player);
+                })
+                window.onbeforeunload = function () {
+                    deletePlayer(id);
+                };
+
+                Players();
+
+                setInterval(function loadChat() { //carga el chat
+                    $('#chat').empty();
+                    $.ajax({
+                        method: "GET",
+                        url: window.location.href + 'lobby'
+                    }).done(function (chat) {
+                        for (var i = 0; i < chat.length; i++) {
+                            var style = 'color:white';
+                            $('#chat').append('<div><span ' + style + '>' + chat[i] + '</span>')
+                        }
+                    });
+                }, 3000);
+                setInterval(function loadPlayers(callback) { //Carga los jugadores
+                    $('#info-players').empty();
+                    $.ajax({
+                        url: window.location.href + 'lobby/jugadores'
+                    }).done(function (Player) {
+                        console.log('Jugadores Conectados: ' + JSON.stringify(Player));
+                        for (var i = 0; i < Player.length; i++) {
+                            showPlayer(Player[i]);
+                        }
+                    })
+                }, 3000);
             })
-            window.onbeforeunload = function () {
+
+            $("#dis-button").click(function () {
+
                 deletePlayer(id);
-            };
+                location.reload();
 
-            Players();
+            })
 
-            var infoPlayer = $('#info-players')
-            var input = $('#input')
-            var chat = $('#chat')
-
-            //Handle send button
             $("#send-button").click(function () {
+
                 var test = document.querySelector('#input-form')
                 var name = test.querySelector('input[name="name"]');
                 var message = {
-                    content: name.value,
+                    content: playerUsername + ": " + name.value,
                 }
                 name.value = "";
+                //Creamos mensaje
                 createMessage(message, function (msg) {
-                    //When item with id is returned from server
+                    //Mostramos mensaje
                     showMessage(msg);
                 });
             })
         })
     }
-
     update() {
-		if(this.returnKey.isDown){
-            this.scene.start('selectorModeScene');
-        }
-
+		
     }
 }

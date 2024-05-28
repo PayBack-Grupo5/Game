@@ -11,7 +11,11 @@ var config = {
     },
     autoCenter: false,
 
-    scene: [MainMenuScene, EscenaJuego, PauseMenuScene, VictoryScenePlayer1, VictoryScenePlayer2, CreditScene, ContrlScene, TutorialScene, EscenaLobby],
+    scene: [MainMenuScene, EscenaJuego, PauseMenuScene, VictoryScenePlayer1, VictoryScenePlayer2, CreditScene, ContrlScene, TutorialScene, Lobby],
+
+    dom: {
+        createContainer: true
+    }
 };
 
 var game = new Phaser.Game(config);
