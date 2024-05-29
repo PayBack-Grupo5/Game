@@ -10,6 +10,10 @@ class MainMenuScene extends Phaser.Scene {
         this.botonDetectChat;
     }
 
+    initialize() {
+        Phaser.Scene.call(this, { key: 'MainMenuScene' });
+    }
+
     preload() {
         // Imágenes de fondo y botón
         this.load.image('titleBackground', 'assets/images/titulo.jpeg');
@@ -57,9 +61,9 @@ class MainMenuScene extends Phaser.Scene {
 
         // Si pulsamos, nos lleva a la escena de juego
         this.playButtonContainer.on('pointerdown', function () {
-            this.scene.scene.bringToTop('GameScene');
-            this.scene.scene.launch('PauseMenuScene');
-            this.scene.scene.launch('GameScene');
+            this.scene.scene.stop("MainMenuScene");
+            this.scene.scene.start('GameScene');
+            this.scene.scene.start('PauseMenuScene');
             this.scene.scene.sleep('PauseMenuScene');
         });
 
@@ -75,8 +79,7 @@ class MainMenuScene extends Phaser.Scene {
 
         // Si pulsamos, nos lleva a la escena de créditos
         this.creditsButtonContainer.on('pointerdown', function () {
-            this.scene.scene.bringToTop('CreditScene');
-            this.scene.scene.launch('CreditScene');
+            this.scene.scene.start('CreditScene');
         });
 
         // Resalta el botón al pasar el puntero sobre él
@@ -91,8 +94,7 @@ class MainMenuScene extends Phaser.Scene {
 
         // Si pulsamos, nos lleva a la escena de controles
         this.contrlButtonContainer.on('pointerdown', function () {
-            this.scene.scene.bringToTop('ContrlScene');
-            this.scene.scene.launch('ContrlScene');
+            this.scene.scene.start('ContrlScene');
         });
 
         // Resalta el botón al pasar el puntero sobre él
@@ -107,8 +109,7 @@ class MainMenuScene extends Phaser.Scene {
 
         // Si pulsamos, nos lleva a la escena de tutorial
         this.tutorialButtonContainer.on('pointerdown', function () {
-            this.scene.scene.bringToTop('TutorialScene');
-            this.scene.scene.launch('TutorialScene');
+            this.scene.scene.start('TutorialScene');
         });
 
         // Resalta el botón al pasar el puntero sobre él
@@ -123,8 +124,7 @@ class MainMenuScene extends Phaser.Scene {
 
         // Si pulsamos, nos lleva a la escena de chat
         this.chatButtonContainer.on('pointerdown', function () {
-            this.scene.scene.bringToTop('Lobby');
-            this.scene.scene.launch('Lobby');
+            this.scene.scene.start('Lobby');
         });
 
         // Resalta el botón al pasar el puntero sobre él

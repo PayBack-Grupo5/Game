@@ -1,9 +1,13 @@
 class TutorialScene extends Phaser.Scene {
     constructor() {
-        super({ key: 'TutorialScene' });
+        super("TutorialScene");
         // Elementos de la escena de tutorial
         this.background;
         this.backButtonContainer;
+    }
+
+    initialize() {
+        Phaser.Scene.call(this, { key: 'TutorialScene' });
     }
 
     preload() {

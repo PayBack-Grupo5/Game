@@ -1,82 +1,64 @@
-var playerCount;
-var id;
-
-class Lobby extends Phaser.Scene{
-    
+class Lobby extends Phaser.Scene {
     constructor() {
         super("Lobby");
+        this.botonMenu;
     }
 
-    preload(){
+    initialize() {
+        Phaser.Scene.call(this, { key: 'Lobby' });
+    }
+
+    preload() {
         this.load.html('form', 'form.html');
-        this.load.image('background', 'assets/images/nocheEstrellas.jpg');
-        this.load.image('botonReiniciar', 'assets/images/reiniciar.png');
+        this.load.image('background', 'assets/images/nocheEstrellas.jpg'); // Asegúrate de que la imagen exista
+        this.load.image('botonReiniciar', 'assets/images/reiniciar.png');  // Asegúrate de que la imagen exista
     }
 
-    create(){
+    create() {
+        // Añadir imagen de fondo
+        this.add.image(400, 300, 'background').setOrigin(0.5, 0.5).setDepth(-1).setScale(2.7);
 
-        //Colocamos el botón
-        var botonVolver = this.add.image(0, 0, 'botonReiniciar');
-        //Lo hacemos interactivo
-        this.returnButtonContainer = this.add.container(700, 550, [botonVolver]);
-        this.returnButtonContainer.setSize(botonVolver.height, botonVolver.width);
-        this.returnButtonContainer.setInteractive();
+        // Añadir botón de reinicio
+        var botonVolver = this.add.image(700, 550, 'botonReiniciar');
+        botonVolver.setInteractive();
 
-        this.returnButtonContainer.on('pointerdown', function () {
-            this.scene.scene.bringToTop('MainMenuScene');
-            this.scene.scene.start('MainMenuScene');
-        })
-        //Highlight
-        this.returnButtonContainer.on('pointerover', function () {
+        botonVolver.on('pointerdown', () => {
+            this.scene.start('MainMenuScene');
+        });
+
+        botonVolver.on('pointerover', () => {
             botonVolver.setScale(1.2);
-        })
+        });
 
-        this.returnButtonContainer.on('pointerout', function () {
+        botonVolver.on('pointerout', () => {
             botonVolver.setScale(1);
-        })
-		
-		this.idOfExitedPlayer = 0;
-		this.returnKey =  this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
-		this.add.image(0,0,"background").setOrigin(0).setScale(2.4).setDepth(-1);
-		this.style = { font: "15px OCR A", fill: "#FFFFFF" };
-        this.nameInput = this.add.dom(400, 325).createFromCache("form");
+        });
 
-        setInterval(function loadChat() {
-            $('#chat').empty();
-            $.ajax({
-               method: "GET",
-               url: window.location.href + 'lobby'
-           }).done(function (chat) {
-               for (var i = 0; i < chat.length; i++) {
-                   var style = '';
-                   $('#chat').append('<div><span ' + style + '>' + chat[i] +'</span>')
-               }
-           });
-        },3000);
+        // Crear y mostrar el formulario
+        this.nameInput = this.add.dom(400, 300).createFromCache('form'); // Ajustar posición
 
-        setInterval(function loadPlayers(callback) {
-            $('#info-players').empty();
-            $.ajax({
-                url: window.location.href + 'lobby/jugadores'
-            }).done(function (Player) {
-                console.log('Jugadores Conectados: ' + JSON.stringify(Player));
-                for (var i = 0; i < Player.length; i++) {
-                    showPlayer(Player[i]);
-                }
-            })
-        },3000);
+        // Inicializar teclas
+        this.returnKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
 
-        function Players(){
+        // Configurar llamadas AJAX
+        this.setupAjaxCalls();
+    }
+
+    setupAjaxCalls() {
+        /////////////////////
+        //////JUGADORES//////
+        /////////////////////
+
+        function Players() {
             $.ajax({
                 method: "GET",
                 url: window.location.href + 'lobby/valor',
             }).done(function (value) {
                 playerCount = value;
                 console.log(playerCount);
-            })
+            });
         }
 
-        //Create player in server
         function createPlayer(player, callback) {
             playerCount++;
             console.log(playerCount);
@@ -89,15 +71,44 @@ class Lobby extends Phaser.Scene{
                     "Content-Type": "application/json"
                 }
             }).done(function (player) {
-                var style = '';
                 console.log("Se ha unido el siguiente jugador: " + JSON.stringify(player));
                 id = player.id;
                 callback(player);
-                $('#info-players').append(
-                    '<div><span ' + style + '>' + "Se ha conectado el " + player.name + id +
-                    '</span>')
-            })
+                $('#info-players').append('<div><span>' + "Espera " + player.username + ", te estás conectado..." + '</span>');
+            });
         }
+
+        function showPlayer(player) {
+            $('#info-players').append('<div id="' + playerUsername + '"><span style="color:red">' + player.username + " está online " + '</span></div>');
+        }
+
+        setInterval(function getJugador(total) {
+            for (var i = 0; i <= total; i++) {
+                $.ajax({
+                    method: 'GET',
+                    url: window.location.href + 'lobby/' + i
+                }).done(function (player) {
+                    console.log("Jugador " + JSON.stringify(player));
+                }).fail(function () {
+                    console.log("Jugador con id " + i + " no encontrado");
+                });
+            }
+        }, 3000);
+
+        function deletePlayer(playerId) {
+            playerCount--;
+            $.ajax({
+                method: 'DELETE',
+                url: window.location.href + 'lobby/' + playerId
+            }).done(function (player) {
+                console.log("Se ha salido del lobby el siguiente jugador: " + JSON.stringify(player));
+                $('#info-players').append('<div><span>' + "Desconectando..." + '</span></div>');
+            });
+        }
+
+        ////////////////////
+        //////MENSAJES//////
+        ////////////////////
 
         function createMessage(message, callback) {
             $.ajax({
@@ -111,90 +122,72 @@ class Lobby extends Phaser.Scene{
             }).done(function (message) {
                 console.log("Se ha escrito el siguiente mensaje: " + JSON.stringify(message));
                 callback(message);
-            })
+            });
         }
 
-        //Get Player
-        setInterval(function getJugador(total) {
-            for (var i = 0; i <= total; i++) {
-                $.ajax({
-                    method: 'GET',
-                    url: window.location.href + 'lobby/' + i
-                }).done(function (player) {
-                    console.log("Jugador " + JSON.stringify(player))
-                })
-                .fail(function () {
-                    console.log("Jugador con id " + i + " no encontrado")
-                })
-            }
-        }, 3000)
-
-        //Delete player from server 
-        function deletePlayer(playerId) {
-            playerCount--;
-            $.ajax({
-                method: 'DELETE',
-                url: window.location.href + 'lobby/' + playerId
-            }).done(function (jugador) {
-                var style = "";
-                this.idOfExitedPlayer = playerId;
-                console.log("Se ha salido del lobby el siguiente jugador: " + JSON.stringify(player));
-                $('#info-players').append(
-                    '<div><span ' + style + '>' + "El jugador " + playerId + " se ha desconectado" +
-                    '</span>')
-            })
-        }
-
-        //Show player connection
-        function showPlayer(player) {
-            var style = '';
-            $('#info-players').append(
-                '<div id="jugador-' + player.id + '"><span ' + style + '>' + player.name + " " + player.id +
-                " esta online " + '</span>')
-        }
-
-        // Show message
         function showMessage(message) {
-            var style = '';
-            $('#chat').append(
-                '<div><span>' + message.content +
-                '</span>')
+            $('#chat').append('<div style="color:white"><span>' + message.content + '</span></div>');
         }
 
         $(document).ready(function () {
-            var player = {
-                name: "Jugador"
-            }
-            createPlayer(player, function (Jugador) {
-                //When item with id is returned from server
-                showPlayer(Jugador);
-            })
-            window.onbeforeunload = function () {
+            $("#button-connect").click(function () {
+                document.getElementById('divDisconnect').style.display = 'inline-block';
+                var test_username = document.querySelector('#info-players');
+                var uName = test_username.querySelector('input[name="username"]').value;
+                playerUsername = uName;
+                var player = { username: playerUsername };
+                createPlayer(player, function (player) {
+                    showPlayer(player);
+                });
+                window.onbeforeunload = function () {
+                    deletePlayer(id);
+                };
+                Players();
+
+                setInterval(function loadChat() {
+                    $('#chat').empty();
+                    $.ajax({
+                        method: "GET",
+                        url: window.location.href + 'lobby'
+                    }).done(function (chat) {
+                        for (var i = 0; i < chat.length; i++) {
+                            $('#chat').append('<div><span style="color:white">' + chat[i] + '</span></div>');
+                        }
+                    });
+                }, 3000);
+
+                setInterval(function loadPlayers() {
+                    $('#info-players').empty();
+                    $.ajax({
+                        url: window.location.href + 'lobby/jugadores'
+                    }).done(function (Player) {
+                        for (var i = 0; i < Player.length; i++) {
+                            showPlayer(Player[i]);
+                        }
+                    });
+                }, 3000);
+            });
+
+            $("#dis-button").click(function () {
                 deletePlayer(id);
-            };
+                location.reload();
+            });
 
-            Players();
-
-            var infoPlayer = $('#info-players')
-            var input = $('#input')
-            var chat = $('#chat')
-
-            //Handle send button
             $("#send-button").click(function () {
-                var test = document.querySelector('#input-form')
+                var test = document.querySelector('#input-form');
                 var name = test.querySelector('input[name="name"]');
-                var message = {
-                    content: name.value,
-                }
+                var message = { content: playerUsername + ": " + name.value };
                 name.value = "";
                 createMessage(message, function (msg) {
-                    //When item with id is returned from server
                     showMessage(msg);
                 });
-            })
-        })
+            });
+        });
     }
+
     update() {
-		
+        if (this.returnKey.isDown) {
+            this.scene.start('MainMenuScene');
+        }
     }
 }

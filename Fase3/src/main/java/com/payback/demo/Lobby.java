@@ -1,43 +1,43 @@
 package com.payback.demo;
 
 import java.util.List;
+
 import java.util.ArrayList;
 
-public class Lobby{
+public class Lobby {
 	
-	private List<Message> chat = new ArrayList<Message>();
-	private List<Player> playerList = new ArrayList<Player>();
+    private List<Message> chat = new ArrayList<Message>();
+	private List<User> userList = new ArrayList<User>();
 
 	public Lobby() {
 	}
 	
-	public List<Player> getPlayerList() {
-		return playerList;
+	public List<User> getUserList() {
+		return userList;
 	}
 
-	public Player getPlayer(int i) {
-		return playerList.get(i);
+	public User getUser(int i) {
+		return userList.get(i);
 	}
 	
-	public void addPlayer(Player _player) {
-		playerList.add(_player);
+	public void addUser(User player) {
+		userList.add(player);
 	}
 	
-	public void removePlayer(int id) {
-		playerList.remove(id);
+	public void removeUser(int id) {
+		userList.remove(id);
 	}
 
 	public List<Message> getChat() {
 		return chat;
 	}
 	
-	public void addMessage(Message _message) {
-		chat.add(_message);
+	public void addMessage(Message message) {
+		chat.add(message);
 	}
 
 	@Override
 	public String toString() {
-			return playerList.toString();
+			return userList.toString();
 	}
-	
 }

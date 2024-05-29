@@ -2,6 +2,9 @@ var config = {
     type: Phaser.AUTO,
     width: 800,
     height: 600,
+    dom: {
+        createContainer: true
+    },
     physics: {
         default: 'arcade',
         arcade: {
@@ -13,10 +16,8 @@ var config = {
 
     scene: [MainMenuScene, EscenaJuego, PauseMenuScene, VictoryScenePlayer1, VictoryScenePlayer2, CreditScene, ContrlScene, TutorialScene, Lobby],
 
-    dom: {
-        createContainer: true
-    }
+    
 };
 
-var game = new Phaser.Game(config);
+const game = new Phaser.Game(config);
 

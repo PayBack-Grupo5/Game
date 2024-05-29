@@ -1,29 +1,28 @@
 package com.payback.demo;
 
-public class Message{
+public class Message {
 	
-	private String content;
-	private Player player;
+    private String text;
+	private User user;
 	
 	public Message() {
 	}
 	
 	public String getContent() {
-		return content;
+		return text;
 	}
-	public void setContent(String content) {
-		this.content = content;
+	public void setContent(String text) {
+		this.text = text;
 	}
-	public Player getPlayer() {
-		return player;
+	public User getUser() {
+		return user;
 	}
-	public void setJugador(Player _player) {
-		this.player = _player;
+	public void setUser(User user) {
+		this.user = user;
 	}
 	
 	@Override
 	public String toString() {
-		return "Mensaje [contenido=" + content + ", jugador=" + player + "]";
+		return "Mensaje [contenido=" + text + ", jugador=" + user + "]";
 	}
-	
 }
