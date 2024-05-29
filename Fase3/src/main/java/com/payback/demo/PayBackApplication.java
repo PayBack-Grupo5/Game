@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class PayBackApplication{
 	
 	public static void main(String[] args) {
-		SpringApplication.run(SpringBootApplication.class, args);
+		SpringApplication.run(PayBackApplication.class, args);
 	}
 	
 }
