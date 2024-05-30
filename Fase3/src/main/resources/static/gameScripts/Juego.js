@@ -369,6 +369,7 @@ class EscenaJuego extends Phaser.Scene {
             this.vidasply1 = 3;
             this.vidasply2 = 3;
             this.gameOver = false;
+            this.shutdown();
             this.scene.start('EscenaFinalP1');
             this.scene.bringToTop('EscenaFinalP1');
         }
@@ -378,6 +379,7 @@ class EscenaJuego extends Phaser.Scene {
             this.vidasply1 = 3;
             this.vidasply2 = 3;
             this.gameOver = false;
+            this.shutdown();
             this.scene.start('EscenaFinalP2');
             this.scene.bringToTop('EscenaFinalP2');
         }
@@ -504,6 +506,25 @@ class EscenaJuego extends Phaser.Scene {
             this.player2.setTint(0xff0000);
             this.gameOver = true;
         }
+    }
+
+    // Método llamado cuando la escena es destruida o cambiada
+    shutdown() {
+        /*this.keyP.removeKey;
+        this.keyA.removeKey;
+        this.keyS.removeKey;
+        this.keyD.removeKey;
+        this.keyW.removeKey;
+        this.keyF.removeKey;
+        this.keyEsc.removeKey;*/
+        this.keyP = this.input.keyboard.removeKey(Phaser.Input.Keyboard.KeyCodes.P);
+        this.keyA = this.input.keyboard.removeKey(Phaser.Input.Keyboard.KeyCodes.A);
+        this.keyS = this.input.keyboard.removeKey(Phaser.Input.Keyboard.KeyCodes.S);
+        this.keyD = this.input.keyboard.removeKey(Phaser.Input.Keyboard.KeyCodes.D);
+        this.keyW = this.input.keyboard.removeKey(Phaser.Input.Keyboard.KeyCodes.W);
+        this.keyF = this.input.keyboard.removeKey(Phaser.Input.Keyboard.KeyCodes.F);
+        this.keyEsc = this.input.keyboard.removeKey(Phaser.Input.Keyboard.KeyCodes.ESC);
+        //super.destroy();        
     }
 }
 
