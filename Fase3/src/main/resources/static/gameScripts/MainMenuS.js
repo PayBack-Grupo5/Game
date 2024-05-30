@@ -102,6 +102,7 @@ class MainMenuScene extends Phaser.Scene {
         // Si pulsamos, nos lleva a la escena de créditos
         this.creditsButtonContainer.on('pointerdown', function () {
             this.scene.scene.start('CreditScene');
+            menu_music.stop(menu_musicConfig)
         });
 
         // Resalta el botón al pasar el puntero sobre él
@@ -117,6 +118,7 @@ class MainMenuScene extends Phaser.Scene {
         // Si pulsamos, nos lleva a la escena de controles
         this.contrlButtonContainer.on('pointerdown', function () {
             this.scene.scene.start('ContrlScene');
+            menu_music.stop(menu_musicConfig)
         });
 
         // Resalta el botón al pasar el puntero sobre él
@@ -132,6 +134,7 @@ class MainMenuScene extends Phaser.Scene {
         // Si pulsamos, nos lleva a la escena de tutorial
         this.tutorialButtonContainer.on('pointerdown', function () {
             this.scene.scene.start('TutorialScene');
+            menu_music.stop(menu_musicConfig)
         });
 
         // Resalta el botón al pasar el puntero sobre él
