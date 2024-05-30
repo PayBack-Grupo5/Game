@@ -86,7 +86,7 @@ class MainMenuScene extends Phaser.Scene {
             this.scene.scene.start('GameScene');
             this.scene.scene.start('PauseMenuScene');
             this.scene.scene.sleep('PauseMenuScene');
-            this.sound.stop('musica');
+            menu_music.stop(menu_musicConfig)
         });
 
         // Resalta el botón al pasar el puntero sobre él
