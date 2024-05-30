@@ -4,25 +4,31 @@ class Lobby extends Phaser.Scene {
         this.botonMenu;
     }
 
-    initialize() {
+    /*initialize() {
         Phaser.Scene.call(this, { key: 'Lobby' });
-    }
+    }*/
 
     preload() {
-        this.load.html('form', 'form.html');
-        this.load.image('background', 'assets/images/nocheEstrellas.jpg'); // Asegúrate de que la imagen exista
-        this.load.image('botonReiniciar', 'assets/images/reiniciar.png');  // Asegúrate de que la imagen exista
+        this.load.html("form", "form.html");
+        this.load.image('background', 'assets/images/nocheEstrellas.jpg');
+        this.load.image('botonReiniciar', 'assets/images/reiniciar.png'); 
     }
 
     create() {
+        
+        this.idOfExitedPlayer = 0;
+        this.returnKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
+        this.style = { font: "15px OCR A", fill: "#FFFFFF" };
+        this.nameInput = this.add.dom(400, 325).createFromCache("form");
+
         // Añadir imagen de fondo
-        this.add.image(400, 300, 'background').setOrigin(0.5, 0.5).setDepth(-1).setScale(2.7);
+        this.add.image(400, 300, 'background').setOrigin(0.5, 0.5).setDepth(-1).setScale(2.4);
 
         // Añadir botón de reinicio
-        var botonVolver = this.add.image(700, 550, 'botonReiniciar');
-        botonVolver.setInteractive();
+        var botonVolver = this.add.image(700, 550, 'botonReiniciar').setInteractive();
 
         botonVolver.on('pointerdown', () => {
+            this.scene.bringToTop('MainMenuScene');
             this.scene.start('MainMenuScene');
         });
 
@@ -34,14 +40,9 @@ class Lobby extends Phaser.Scene {
             botonVolver.setScale(1);
         });
 
-        // Crear y mostrar el formulario
-        this.nameInput = this.add.dom(400, 300).createFromCache('form'); // Ajustar posición
-
-        // Inicializar teclas
-        this.returnKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
-
         // Configurar llamadas AJAX
         this.setupAjaxCalls();
+
     }
 
     setupAjaxCalls() {
@@ -142,6 +143,7 @@ class Lobby extends Phaser.Scene {
                 window.onbeforeunload = function () {
                     deletePlayer(id);
                 };
+
                 Players();
 
                 setInterval(function loadChat() {
@@ -151,7 +153,7 @@ class Lobby extends Phaser.Scene {
                         url: window.location.href + 'lobby'
                     }).done(function (chat) {
                         for (var i = 0; i < chat.length; i++) {
-                            $('#chat').append('<div><span style="color:white">' + chat[i] + '</span></div>');
+                            $('#chat').append('<div><span>' + chat[i] + '</span></div>');
                         }
                     });
                 }, 3000);
@@ -186,8 +188,5 @@ class Lobby extends Phaser.Scene {
     }
 
     update() {
-        if (this.returnKey.isDown) {
-            this.scene.start('MainMenuScene');
-        }
     }
 }
