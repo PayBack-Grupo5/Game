@@ -419,7 +419,7 @@ Carlos lidera el equipo de modelado, encargado de crear los modelos bidimensiona
 ![Controles](Capturas/Creditos.jpeg)
 ###
 ### DIAGRAMA DE ESCENAS
-![Menu](Capturas/diagrama_de_estados.png)
+![Menu](Capturas/diagrama_de_estados.jpg)
 ##### En este menú se muestra el desplazamiento que puede hacer el jugador entre las escenas. En primer lugar, desde el menú principal solo puede acceder al juego, desde el juego al menú de pausa, y al de victoria de cada jugador. Desde estos se puede acceder al menu principal otra vez.
 ### DISEÑO
 ##### Para el diseño del juego se ha usado la inteligencia artificial para la creación de fondos, un fondo donde podemos observar que es el antiguo oeste mezclado con toques futurísicos. Los botones y letreros se han hecho en dorado para que destaquen. 
