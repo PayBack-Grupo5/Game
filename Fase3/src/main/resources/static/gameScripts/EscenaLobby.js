@@ -4,10 +4,6 @@ class Lobby extends Phaser.Scene {
         this.botonMenu;
     }
 
-    /*initialize() {
-        Phaser.Scene.call(this, { key: 'Lobby' });
-    }*/
-
     preload() {
         this.load.html("form", "form.html");
         this.load.image('background', 'assets/images/nocheEstrellas.jpg');
@@ -20,6 +16,7 @@ class Lobby extends Phaser.Scene {
         this.returnKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
         this.style = { font: "15px OCR A", fill: "#FFFFFF" };
         this.nameInput = this.add.dom(400, 325).createFromCache("form");
+        
 
         // Añadir imagen de fondo
         this.add.image(400, 300, 'background').setOrigin(0.5, 0.5).setDepth(-1).setScale(2.4);
