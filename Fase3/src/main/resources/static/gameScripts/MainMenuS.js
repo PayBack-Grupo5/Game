@@ -1,3 +1,5 @@
+var menu_music;
+
 class MainMenuScene extends Phaser.Scene {
     constructor() {
         super({ key: 'MainMenuScene' });
@@ -22,9 +24,28 @@ class MainMenuScene extends Phaser.Scene {
         this.load.image('contrlButton', 'assets/images/botonContrl.png');
         this.load.image('chatButton', 'assets/images/botonChat.png');
         this.load.image('tutorialButton', 'assets/images/botonTutorial.png');
+        this.load.audio("musica", ["assets/sounds/music.mp3"]);
+
     }
 
     create() {
+        //musica
+        menu_music = this.sound.add('musica');
+        menu_music.play();
+
+        var menu_musicConfig = {
+            mute: false,
+            volume: 1,
+            rate: 1,
+            detune: 0,
+            seek: 0,
+            loop: true,
+            delay: 0
+        };
+        menu_music.play(menu_musicConfig);
+
+
+
         // Añadimos la imagen de fondo
         this.background = this.add.image(400, 300, 'titleBackground').setDepth(-1);
 
@@ -65,6 +86,7 @@ class MainMenuScene extends Phaser.Scene {
             this.scene.scene.start('GameScene');
             this.scene.scene.start('PauseMenuScene');
             this.scene.scene.sleep('PauseMenuScene');
+            this.sound.stop('musica');
         });
 
         // Resalta el botón al pasar el puntero sobre él
@@ -125,6 +147,7 @@ class MainMenuScene extends Phaser.Scene {
         // Si pulsamos, nos lleva a la escena de chat
         this.chatButtonContainer.on('pointerdown', function () {
             this.scene.scene.start('Lobby');
+            this.sound.stop('musica');
         });
 
         // Resalta el botón al pasar el puntero sobre él
@@ -140,6 +163,6 @@ class MainMenuScene extends Phaser.Scene {
     }
 
     update() {
-			
+
     }
 }

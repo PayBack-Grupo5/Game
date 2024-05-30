@@ -83,7 +83,7 @@ class EscenaJuego extends Phaser.Scene {
         this.load.image('vidas', 'assets/images/vidas.png');
 
         //Boton de pausa
-        this.load.image('botonPausa', 'assets/images/pausa.png')
+        this.load.image('Pausa', 'assets/images/pausa.png')
 
         //Sonido disparo
         this.load.audio('myGunSound', 'assets/sounds/bang.mp3');
@@ -101,7 +101,7 @@ class EscenaJuego extends Phaser.Scene {
 
 
         //Añadimos el boton de pausa
-        this.pauseImage = this.add.image(0, 0, 'botonPausa').setDepth(2);
+        this.pauseImage = this.add.image(0, 0, 'Pausa');
         //Lo hacemos interactivo
         this.pauseButtonContainer = this.add.container(400, 50, [this.pauseImage]);
         this.pauseButtonContainer.setSize(this.pauseImage.height, this.pauseImage.width);
@@ -257,6 +257,7 @@ class EscenaJuego extends Phaser.Scene {
 
         this.vidasply1 = 3;
         this.vidasply2 = 3;
+        
     }
 
     //Metodo para disparo de player1

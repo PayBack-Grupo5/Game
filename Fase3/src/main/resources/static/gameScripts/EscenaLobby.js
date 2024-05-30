@@ -2,14 +2,13 @@ class Lobby extends Phaser.Scene {
     constructor() {
         super("Lobby");
         this.botonMenu;
-    }
-
-    initialize() {
-        Phaser.Scene.call(this, { key: 'Lobby' });
+        this.playerUsername = null; // Definimos playerUsername
+        this.id = null; // Definimos id
+        this.playerCount = 0; // Definimos playerCount
     }
 
     preload() {
-        this.load.html('form', 'form.html');
+        this.load.html('form', 'form.html'); // Asegúrate de que la ruta es correcta
         this.load.image('background', 'assets/images/nocheEstrellas.jpg'); // Asegúrate de que la imagen exista
         this.load.image('botonReiniciar', 'assets/images/reiniciar.png');  // Asegúrate de que la imagen exista
     }
@@ -49,19 +48,19 @@ class Lobby extends Phaser.Scene {
         //////JUGADORES//////
         /////////////////////
 
-        function Players() {
+        const Players = () => {
             $.ajax({
                 method: "GET",
                 url: window.location.href + 'lobby/valor',
-            }).done(function (value) {
-                playerCount = value;
-                console.log(playerCount);
+            }).done((value) => {
+                this.playerCount = value; // Asegurarse de que se usa this.playerCount
+                console.log(this.playerCount);
             });
         }
 
-        function createPlayer(player, callback) {
-            playerCount++;
-            console.log(playerCount);
+        const createPlayer = (player, callback) => {
+            this.playerCount++; // Asegurarse de que se usa this.playerCount
+            console.log(this.playerCount);
             $.ajax({
                 method: "POST",
                 url: window.location.href + 'lobby',
@@ -70,16 +69,16 @@ class Lobby extends Phaser.Scene {
                 headers: {
                     "Content-Type": "application/json"
                 }
-            }).done(function (player) {
+            }).done((player) => {
                 console.log("Se ha unido el siguiente jugador: " + JSON.stringify(player));
-                id = player.id;
+                this.id = player.id; // Asegurarse de que se usa this.id
                 callback(player);
-                $('#info-players').append('<div><span>' + "Espera " + player.username + ", te estás conectado..." + '</span>');
+                $('#info-players').append('<div><span>' + "Espera " + player.username + ", te estás conectando..." + '</span></div>');
             });
         }
 
-        function showPlayer(player) {
-            $('#info-players').append('<div id="' + playerUsername + '"><span style="color:red">' + player.username + " está online " + '</span></div>');
+        const showPlayer = (player) => {
+            $('#info-players').append('<div id="' + player.username + '"><span style="color:red">' + player.username + " está online " + '</span></div>');
         }
 
         setInterval(function getJugador(total) {
@@ -87,20 +86,20 @@ class Lobby extends Phaser.Scene {
                 $.ajax({
                     method: 'GET',
                     url: window.location.href + 'lobby/' + i
-                }).done(function (player) {
+                }).done((player) => {
                     console.log("Jugador " + JSON.stringify(player));
-                }).fail(function () {
+                }).fail(() => {
                     console.log("Jugador con id " + i + " no encontrado");
                 });
             }
         }, 3000);
 
-        function deletePlayer(playerId) {
-            playerCount--;
+        const deletePlayer = (playerId) => {
+            this.playerCount--; // Asegurarse de que se usa this.playerCount
             $.ajax({
                 method: 'DELETE',
                 url: window.location.href + 'lobby/' + playerId
-            }).done(function (player) {
+            }).done((player) => {
                 console.log("Se ha salido del lobby el siguiente jugador: " + JSON.stringify(player));
                 $('#info-players').append('<div><span>' + "Desconectando..." + '</span></div>');
             });
@@ -110,7 +109,7 @@ class Lobby extends Phaser.Scene {
         //////MENSAJES//////
         ////////////////////
 
-        function createMessage(message, callback) {
+        const createMessage = (message, callback) => {
             $.ajax({
                 method: "POST",
                 url: window.location.href + 'lobby/mensaje',
@@ -119,28 +118,27 @@ class Lobby extends Phaser.Scene {
                 headers: {
                     "Content-Type": "application/json"
                 }
-            }).done(function (message) {
+            }).done((message) => {
                 console.log("Se ha escrito el siguiente mensaje: " + JSON.stringify(message));
                 callback(message);
             });
         }
 
-        function showMessage(message) {
+        const showMessage = (message) => {
             $('#chat').append('<div style="color:white"><span>' + message.content + '</span></div>');
         }
 
-        $(document).ready(function () {
-            $("#button-connect").click(function () {
+        $(document).ready(() => {
+            $("#button-connect").click(() => {
                 document.getElementById('divDisconnect').style.display = 'inline-block';
-                var test_username = document.querySelector('#info-players');
-                var uName = test_username.querySelector('input[name="username"]').value;
-                playerUsername = uName;
-                var player = { username: playerUsername };
-                createPlayer(player, function (player) {
+                var uName = document.querySelector('input[name="username"]').value;
+                this.playerUsername = uName;
+                var player = { username: this.playerUsername };
+                createPlayer(player, (player) => {
                     showPlayer(player);
                 });
-                window.onbeforeunload = function () {
-                    deletePlayer(id);
+                window.onbeforeunload = () => {
+                    deletePlayer(this.id);
                 };
                 Players();
 
@@ -149,7 +147,7 @@ class Lobby extends Phaser.Scene {
                     $.ajax({
                         method: "GET",
                         url: window.location.href + 'lobby'
-                    }).done(function (chat) {
+                    }).done((chat) => {
                         for (var i = 0; i < chat.length; i++) {
                             $('#chat').append('<div><span style="color:white">' + chat[i] + '</span></div>');
                         }
@@ -160,7 +158,7 @@ class Lobby extends Phaser.Scene {
                     $('#info-players').empty();
                     $.ajax({
                         url: window.location.href + 'lobby/jugadores'
-                    }).done(function (Player) {
+                    }).done((Player) => {
                         for (var i = 0; i < Player.length; i++) {
                             showPlayer(Player[i]);
                         }
@@ -168,17 +166,16 @@ class Lobby extends Phaser.Scene {
                 }, 3000);
             });
 
-            $("#dis-button").click(function () {
-                deletePlayer(id);
+            $("#dis-button").click(() => {
+                deletePlayer(this.id);
                 location.reload();
             });
 
-            $("#send-button").click(function () {
-                var test = document.querySelector('#input-form');
-                var name = test.querySelector('input[name="name"]');
-                var message = { content: playerUsername + ": " + name.value };
-                name.value = "";
-                createMessage(message, function (msg) {
+            $("#send-button").click(() => {
+                var name = document.querySelector('input[name="name"]').value;
+                var message = { content: this.playerUsername + ": " + name };
+                document.querySelector('input[name="name"]').value = ""; // Limpiar el campo de entrada
+                createMessage(message, (msg) => {
                     showMessage(msg);
                 });
             });

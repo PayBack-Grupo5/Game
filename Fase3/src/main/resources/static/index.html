@@ -1,45 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-    <meta charset="UTF-8" />
     <title>PayBack</title>
-
-    <script src="//cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.js"></script>
     <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
-    <link rel="icon" href="assets/images/icon.ico">
-
-
-    <style type="text/css">
-        body {
-            margin: 0;  
-        }
-    </style>
-
-    <script type="text/javascript" src = "gameScripts/Juego.js"></script>
-    <script type="text/javascript" src = "gameScripts/MainMenuS.js"></script>
-    <script type="text/javascript" src = "gameScripts/PauseMenu.js"></script>
-    <script type="text/javascript" src = "gameScripts/VictoryPlayer1.js"></script>
-    <script type="text/javascript" src = "gameScripts/VictoryPlayer2.js"></script>
-    <script type="text/javascript" src = "gameScripts/Credit.js"></script>
-    <script type="text/javascript" src = "gameScripts/Contrl.js"></script>
-    <script type="text/javascript" src = "gameScripts/Tutorial.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.js"></script>
+    <link rel="icon" href="assets/images/icon.ico">    
     
+    <!-- Carga de scripts de Phaser y del juego -->
+    <script type="text/javascript" src="gameScripts/MainMenuS.js"></script>
+    <script type="text/javascript" src="gameScripts/Juego.js"></script>
+    <script type="text/javascript" src="gameScripts/PauseMenu.js"></script>
+    <script type="text/javascript" src="gameScripts/VictoryPlayer1.js"></script>
+    <script type="text/javascript" src="gameScripts/VictoryPlayer2.js"></script>
+    <script type="text/javascript" src="gameScripts/Credit.js"></script>
+    <script type="text/javascript" src="gameScripts/Contrl.js"></script>
+    <script type="text/javascript" src="gameScripts/Tutorial.js"></script>
+    <script type="text/javascript" src="gameScripts/EscenaLobby.js"></script>
+    <script type="text/javascript" src="gameScripts/Config.js"></script>
 
-
-    <script src="gameScripts/scripts/Player1Bullet.js"></script>
-    <script src="gameScripts/scripts/Player1BulletGroup.js"></script>
-    <script src="gameScripts/scripts/Player2Bullet.js"></script>
-    <script src="gameScripts/scripts/Player2BulletGroup.js"></script>
-
-    <script type="text/javascript" src= "gameScripts/EscenaLobby.js"></script>
-    <script src="gameScripts/Config.js"></script>
-
+    <script type="text/javascript" src="gameScripts/scripts/Player1Bullet.js"></script>
+    <script type="text/javascript" src="gameScripts/scripts/Player1BulletGroup.js"></script>
+    <script type="text/javascript" src="gameScripts/scripts/Player2Bullet.js"></script>
+    <script type="text/javascript" src="gameScripts/scripts/Player2BulletGroup.js"></script>
 </head>
-
 <body>
-    <audio src="assets/sounds/music.mp3" autoplay loop>Music</audio>
+    <div id="videogame"></div>
+
 
 </body>
-
 </html>

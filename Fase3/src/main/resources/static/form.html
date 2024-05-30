@@ -1,12 +1,5 @@
 <html>
-
 <head>
-
-</head>
-
-<body>
-    
-    </script>
     <style>
         .todoDiv {
             display: flex;
@@ -15,7 +8,6 @@
             position: relative;
             top: 110px;
             left: 0px;
-
         }
 
         .chatDiv {
@@ -27,7 +19,6 @@
             height: 600px;
             min-height: 600px;
             max-height: 600px;
-
             margin: 0px;
             border: solid;
             color: white;
@@ -50,25 +41,22 @@
             background-color: rgb(118, 36, 151);
             overflow: scroll;
         }      
-
     </style>
+</head>
+<body>
     <div class="todoDiv" id="TodoDiv">
-		
         <div class="chatDiv" id="input-form">
-           
             <div id="divDisconnect"  style="display: none;">
-			<input id="value-input" placeholder='Prueba a decir algo' type='text' name="name">
-            <button id="send-button">Enviar</button>
-            <button id="dis-button" onclick="Disconnect()">Desconectar</button>
-			</div>
+                <input id="value-input" placeholder='Prueba a decir algo' type='text' name="name">
+                <button id="send-button">Enviar</button>
+                <button id="dis-button" onclick="Disconnect()">Desconectar</button>
+            </div>
             <div id="chat" style="font-size: 20px;"></div>
         </div>
-
         <div class="lobbyDiv" id="info-players">
-			<input id="username-input" placeholder='Pon tu nombre' type='text' name="username">
+            <input id="username-input" placeholder='Pon tu nombre' type='text' name="username">
             <button id="button-connect">Conectar</button> 
-		</div>
+        </div>
     </div>
 </body>
-
 </html>
