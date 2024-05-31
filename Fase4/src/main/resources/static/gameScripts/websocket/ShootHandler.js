@@ -1,7 +1,7 @@
 var shootSocket;
 
 var createShootSocket = function () {
-    shootSocket = new WebSocket("ws://localhost:8080/chanderelle/shoot");
+    shootSocket = new WebSocket("ws://localhost:8080/payback/shoot");
 
     shootSocket.onopen = function () {
         console.log("Websocket de disparos creado");

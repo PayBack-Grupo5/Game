@@ -3,7 +3,7 @@ var posSocketCreated = false;
 
 
 createPosSocket = function () {
-    posSocket = new WebSocket("ws://localhost:8080/chanderelle/position");
+    posSocket = new WebSocket("ws://localhost:8080/payback/position");
 
     posSocket.onopen = function () {
         console.log("Websocket de posicion creado");
