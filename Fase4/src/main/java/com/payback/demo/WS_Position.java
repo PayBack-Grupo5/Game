@@ -1,4 +1,4 @@
-package main.java.com.payback.demo;
+package com.payback.demo;
 
 import java.io.Console;
 import java.util.Map;

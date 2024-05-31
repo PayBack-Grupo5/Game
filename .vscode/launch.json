@@ -9,6 +9,13 @@
             "name": "PayBackApplication",
             "request": "launch",
             "mainClass": "com.payback.demo.PayBackApplication",
+            "projectName": ""
+        },
+        {
+            "type": "java",
+            "name": "PayBackApplication",
+            "request": "launch",
+            "mainClass": "com.payback.demo.PayBackApplication",
             "projectName": "demo"
         },
         {
