@@ -267,12 +267,10 @@ class EscenaJuego extends Phaser.Scene {
     //Metodo para disparo de player1
     shootdisparoP1(xpos, ypos, direc) {
         this.disparosP1.fireBalaP1(xpos, ypos, direc);
-        this.sound.play('myGunSound');
     }
     //Metodo para disparo de player2
     shootdisparoP2(xpos, ypos, direc) {
         this.disparosP2.fireBulletP2(xpos, ypos, direc);
-        this.sound.play('myGunSound');
     }
 
 
