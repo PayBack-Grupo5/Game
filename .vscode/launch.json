@@ -6,9 +6,9 @@
     "configurations": [
         {
             "type": "java",
-            "name": "PayBackApplication",
+            "name": "PayBackApplication4",
             "request": "launch",
-            "mainClass": "com.payback.demo.PayBackApplication",
+            "mainClass": "com.payback.demo.PayBackApplication4",
             "projectName": ""
         },
         {
@@ -16,7 +16,7 @@
             "name": "PayBackApplication",
             "request": "launch",
             "mainClass": "com.payback.demo.PayBackApplication",
-            "projectName": "demo"
+            "projectName": "Payback"
         },
         {
             "type": "chrome",

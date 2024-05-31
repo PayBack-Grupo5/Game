@@ -1,173 +1,79 @@
-class Lobby extends Phaser.Scene {
+var lobbyScenePointer;
+
+var client_player = 0;
+var p1_isConnected = false;
+var p2_isConnected = false;
+
+class EscenaLobby extends Phaser.Scene {
+
     constructor() {
-        super("Lobby");
-        this.botonMenu;
-        this.playerUsername = null; // Definimos playerUsername
-        this.id = null; // Definimos id
-        this.playerCount = 0; // Definimos playerCount
+        super('LobbyScene');
+
+        this.J1_conectado;
+        this.J2_conectado;
+        this.J1_desconectado;
+        this.J2_desconectado;
+
+        this.conectando;
+    }
+
+    initialize() {
+        Phaser.Scene.call(this, { key: 'LobbyScene' });
     }
 
     preload() {
-        this.load.html('form', 'form.html'); // Asegúrate de que la ruta es correcta
-        this.load.image('background', 'assets/images/nocheEstrellas.jpg'); // Asegúrate de que la imagen exista
+        this.load.image("lobbyImage", "assets/images/WaitingPlayers.png");
+
+        this.load.image("J1_conectado", "assets/images/J1_conectado.png");
+        this.load.image("J2_conectado", "assets/images/J2_conectado.png");
+
+        this.load.image("J1_desconectado", "assets/images/J1_desconectado.png");
+        this.load.image("J2_desconectado", "assets/images/J2_desconectado.png");
+
+        this.load.image("conectando", "assets/images/conectando.png");
+
     }
 
     create() {
-        // Añadir imagen de fondo
-        this.add.image(400, 300, 'background').setOrigin(0.5, 0.5).setDepth(-1).setScale(2.7);
+        lobbyScenePointer = this;
 
-        // Crear y mostrar el formulario
-        this.nameInput = this.add.dom(400, 300).createFromCache('form'); // Ajustar posición
+        this.fondo = this.add.image(400, 300, 'lobbyImage');
+        this.fondo.setDepth(0);
+        this.fondo.setScale(1);
 
-        // Inicializar teclas
-        this.returnKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
+        this.J1_desconectado = this.add.image(200, 300, "J1_desconectado")
+        this.J1_desconectado.setDepth(1);
+        this.J1_desconectado.setScale(1);
 
-        // Configurar llamadas AJAX
-        this.setupAjaxCalls();
-    }
+        this.J2_desconectado = this.add.image(600, 300, "J2_desconectado")
+        this.J2_desconectado.setDepth(1);
+        this.J2_desconectado.setScale(1);
 
-    setupAjaxCalls() {
-        /////////////////////
-        //////JUGADORES//////
-        /////////////////////
-
-        const Players = () => {
-            $.ajax({
-                method: "GET",
-                url: window.location.href + 'lobby/valor',
-            }).done((value) => {
-                this.playerCount = value; // Asegurarse de que se usa this.playerCount
-                console.log(this.playerCount);
-            });
-        }
-
-        const createPlayer = (player, callback) => {
-            this.playerCount++; // Asegurarse de que se usa this.playerCount
-            console.log(this.playerCount);
-            $.ajax({
-                method: "POST",
-                url: window.location.href + 'lobby',
-                data: JSON.stringify(player),
-                processData: false,
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            }).done((player) => {
-                console.log("Se ha unido el siguiente jugador: " + JSON.stringify(player));
-                this.id = player.id; // Asegurarse de que se usa this.id
-                callback(player);
-                $('#info-players').append('<div><span>' + "Espera " + player.username + ", te estás conectando..." + '</span></div>');
-            });
-        }
-
-        const showPlayer = (player) => {
-            $('#info-players').append('<div id="' + player.username + '"><span style="color:green">' + player.username + " está online " + '</span></div>');
-        }
-
-        setInterval(function getJugador(total) {
-            for (var i = 0; i <= total; i++) {
-                $.ajax({
-                    method: 'GET',
-                    url: window.location.href + 'lobby/' + i
-                }).done((player) => {
-                    console.log("Jugador " + JSON.stringify(player));
-                }).fail(() => {
-                    console.log("Jugador con id " + i + " no encontrado");
-                });
-            }
-        }, 3000);
-
-        const deletePlayer = (playerId) => {
-            this.playerCount--; // Asegurarse de que se usa this.playerCount
-            $.ajax({
-                method: 'DELETE',
-                url: window.location.href + 'lobby/' + playerId
-            }).done((player) => {
-                console.log("Se ha salido del lobby el siguiente jugador: " + JSON.stringify(player));
-                $('#info-players').append('<div><span>' + "Desconectando..." + '</span></div>');
-            });
-        }
-
-        ////////////////////
-        //////MENSAJES//////
-        ////////////////////
-
-        const createMessage = (message, callback) => {
-            $.ajax({
-                method: "POST",
-                url: window.location.href + 'lobby/mensaje',
-                data: JSON.stringify(message),
-                processData: false,
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            }).done((message) => {
-                console.log("Se ha escrito el siguiente mensaje: " + JSON.stringify(message));
-                callback(message);
-            });
-        }
-
-        const showMessage = (message) => {
-            $('#chat').append('<div style="color:white"><span>' + message.content + '</span></div>');
-        }
-
-        $(document).ready(() => {
-            $("#button-connect").click(() => {
-                document.getElementById('divDisconnect').style.display = 'inline-block';
-                var uName = document.querySelector('input[name="username"]').value;
-                this.playerUsername = uName;
-                var player = { username: this.playerUsername };
-                createPlayer(player, (player) => {
-                    showPlayer(player);
-                });
-                window.onbeforeunload = () => {
-                    deletePlayer(this.id);
-                };
-                Players();
-
-                setInterval(function loadChat() {
-                    $('#chat').empty();
-                    $.ajax({
-                        method: "GET",
-                        url: window.location.href + 'lobby'
-                    }).done((chat) => {
-                        for (var i = 0; i < chat.length; i++) {
-                            $('#chat').append('<div><span style="color:white">' + chat[i] + '</span></div>');
-                        }
-                    });
-                }, 3000);
-
-                setInterval(function loadPlayers() {
-                    $('#info-players').empty();
-                    $.ajax({
-                        url: window.location.href + 'lobby/jugadores'
-                    }).done((Player) => {
-                        for (var i = 0; i < Player.length; i++) {
-                            showPlayer(Player[i]);
-                        }
-                    });
-                }, 3000);
-            });
-
-            $("#dis-button").click(() => {
-                deletePlayer(this.id);
-                location.reload();
-            });
-
-            $("#send-button").click(() => {
-                var name = document.querySelector('input[name="name"]').value;
-                var message = { content: this.playerUsername + ": " + name };
-                document.querySelector('input[name="name"]').value = ""; // Limpiar el campo de entrada
-                createMessage(message, (msg) => {
-                    showMessage(msg);
-                });
-            });
-        });
     }
 
     update() {
-        if (this.returnKey.isDown) {
-            this.scene.start('MainMenuScene');
+        //console.log("p1: " + p1_isConnected)
+        //console.log("p2: " + p2_isConnected)
+        if (p1_isConnected) {
+            this.J1_desconectado.setDepth(-1);
+            this.J1_conectado = this.add.image(200, 300, "J1_conectado")
+            this.J1_conectado.setDepth(1);
+            this.J1_conectado.setScale(1);
         }
-    }
+
+        if (p2_isConnected) {
+            this.J2_desconectado.setDepth(-1);
+            this.J2_conectado = this.add.image(600, 300, "J2_conectado")
+            this.J2_conectado.setDepth(1);
+            this.J2_conectado.setScale(1);
+
+            this.conectando = this.add.image(425, 500, "conectando")
+            this.conectando.setDepth(1);
+            this.conectando.setScale(1);
+        }       
+    } 
 }
+
+
+
+

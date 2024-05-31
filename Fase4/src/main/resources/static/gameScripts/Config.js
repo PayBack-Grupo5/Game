@@ -7,7 +7,7 @@ var config = {
     dom: {
         createContainer: true
     },
-    scene: [MainMenuScene, EscenaJuego, PauseMenuScene, CreditScene, ContrlScene, TutorialScene, VictoryScenePlayer1, VictoryScenePlayer2, Lobby],
+    scene: [MainMenuScene, EscenaJuego, PauseMenuScene, CreditScene, ContrlScene, TutorialScene, VictoryScenePlayer1, VictoryScenePlayer2, EscenaChat, EscenaLobby],
     physics: {
         default: 'arcade',
         arcade: {

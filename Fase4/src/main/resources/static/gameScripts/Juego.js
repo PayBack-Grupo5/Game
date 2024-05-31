@@ -247,7 +247,7 @@ class EscenaJuego extends Phaser.Scene {
         this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         this.keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
         this.keyEsc = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
-        
+
         //Disparos 
         this.disparosP1 = new Player1BulletGroup(this);
         this.disparosP2 = new Player2BulletGroup(this);
@@ -261,7 +261,7 @@ class EscenaJuego extends Phaser.Scene {
 
         this.vidasply1 = 3;
         this.vidasply2 = 3;
-        
+
     }
 
     //Metodo para disparo de player1
@@ -276,66 +276,92 @@ class EscenaJuego extends Phaser.Scene {
 
     update() {
 
-        //Player 1 Movimiento
-        if (this.keyA.isDown) {
-            this.player2.setVelocityX(-160);
-            this.player2.anims.play('play2left', true);
-            this.lastP2direction = 'left';
-        } else if (this.keyD.isDown) {
-            this.player2.setVelocityX(160);
-            this.player2.anims.play('play2right', true);
-            this.lastP2direction = 'right';
-        } else {
-            this.player2.setVelocityX(0);
-            this.player2.anims.play('play2front');
-        }
-        if (this.keyW.isDown && this.player2.body.blocked.down) {
-            this.player2.setVelocityY(-500);
-        }
-        //Player 2 Movimiento
-        if (this.cursors.left.isDown) {
-            this.player1.setVelocityX(-160);
-            this.player1.anims.play('play1left', true);
-            this.lastP1direction = 'left';
-        } else if (this.cursors.right.isDown) {
-            this.player1.setVelocityX(160);
-            this.player1.anims.play('play1right', true);
-            this.lastP1direction = 'right';
-        } else {
-            this.player1.setVelocityX(0);
-            this.player1.anims.play('play1front');
-        }
-        if (this.cursors.up.isDown && this.player1.body.blocked.down) {
-            this.player1.setVelocityY(-500);
-        }
-        // Pausa el juego
-        if (Phaser.Input.Keyboard.JustDown(this.keyEsc)) {
-            this.scene.launch('PauseMenuScene');
-            this.scene.pause('GameScene');
-        }
-        //Disparo del player 1
-        if ((Phaser.Input.Keyboard.JustDown(this.keyF))) {
-            if (this.player1.body.touching.left & this.lastP2direction == 'left') {
+        if (posSocketCreated) {
+            if (localPlayer == 2) {
+                //Player 1 Movimiento
+                if (this.keyA.isDown) {
+                    this.player2.setVelocityX(-160);
+                    this.player2.anims.play('play2left', true);
+                    this.lastP2direction = 'left';
+                    posSocket.sendWS(this.player2.x, this.player2.y, this.lastP2direction, localPlayer, false);
+                } else if (this.keyD.isDown) {
+                    this.player2.setVelocityX(160);
+                    this.player2.anims.play('play2right', true);
+                    this.lastP2direction = 'right';
+                    posSocket.sendWS(this.player2.x, this.player2.y, this.lastP2direction, localPlayer, false);
+                } else {
+                    this.player2.setVelocityX(0);
+                    this.player2.anims.play('play2front');
+                    posSocket.sendWS(this.player2.x, this.player2.y, this.lastP2direction, localPlayer, true);
+                }
+                if (this.keyW.isDown && this.player2.body.blocked.down) {
+                    saltandoP1 = true;
+                    this.player2.setVelocityY(-500);
+                } if (this.player.body.touching.down) {
+                    saltandoP1 = false;
+                }
+                if (saltandoP1) {
+                    posSocket.sendWS(this.player2.x, this.player2.y, this.lastP2direction, localPlayer, false);
+                }
+                //Disparo del player 1
+                if ((Phaser.Input.Keyboard.JustDown(this.keyF))) {
+                    shootSocket.sendWS(localPlayer);
+                    if (this.player2.body.touching.left & this.lastP2direction == 'left') {
+
+                    }
+                    else if (this.player2.body.touching.right & this.lastP2direction == 'right') {
+
+                    }
+                    else {
+                        this.shootdisparoP2(this.player2.x, this.player2.y, this.lastP2direction);
+                    }
+                }
 
             }
-            else if (this.player1.body.touching.right & this.lastP2direction == 'right') {
+            else if (localPlayer == 1) {
+                //Player 2 Movimiento
+                if (this.keyA.isDown) {
+                    this.player1.setVelocityX(-160);
+                    this.player1.anims.play('play1left', true);
+                    this.lastP1direction = 'left';
+                    posSocket.sendWS(this.player1.x, this.player1.y, this.lastP1direction, localPlayer, false);
+                } else if (this.keyD.isDown) {
+                    this.player1.setVelocityX(160);
+                    this.player1.anims.play('play1right', true);
+                    this.lastP1direction = 'right';
+                    posSocket.sendWS(this.player1.x, this.player1.y, this.lastP1direction, localPlayer, false);
+                } else {
+                    this.player1.setVelocityX(0);
+                    this.player1.anims.play('play1front');
+                    posSocket.sendWS(this.player1.x, this.player1.y, this.lastP1direction, localPlayer, true);
+                }
+                if (this.keyW.isDown && this.player1.body.blocked.down) {
+                    saltandoP2 = true;
+                    this.player1.setVelocityY(-500);
+                } if (this.setita.body.touching.down) {
+                    saltandoP2 = false;
+                }
+                if (saltandoP2) {
+                    posSocket.sendWS(this.setita.x, this.setita.y, this.lastSdirection, localPlayer);
 
-            }
-            else {
-                this.shootdisparoP2(this.player2.x, this.player2.y, this.lastP2direction);
-            }
-        }
+                }
 
-        //Disparo del player 2
-        if ((Phaser.Input.Keyboard.JustDown(this.keyP))) {
-            if (this.player1.body.touching.left & this.lastP1direction == 'left') {
 
-            }
-            else if (this.player1.body.touching.right & this.lastP1direction == 'right') {
+                //Disparo del player 2
+                if ((Phaser.Input.Keyboard.JustDown(this.keyP))) {
+                    shootSocket.sendWS(localPlayer);
+                    if (this.player1.body.touching.left & this.lastP1direction == 'left') {
 
-            }
-            else {
-                this.shootdisparoP1(this.player1.x, this.player1.y, this.lastP1direction);
+                    }
+                    else if (this.player1.body.touching.right & this.lastP1direction == 'right') {
+
+                    }
+                    else {
+                        this.shootdisparoP1(this.player1.x, this.player1.y, this.lastP1direction);
+
+                    }
+                }
+
 
             }
         }
@@ -370,6 +396,7 @@ class EscenaJuego extends Phaser.Scene {
             this.shutdown();
             this.scene.start('EscenaFinalP1');
             this.scene.bringToTop('EscenaFinalP1');
+            lobbySocket.sendWS("winJ1")
         }
 
         //Si el player 1 se queda sin vidas
@@ -380,8 +407,14 @@ class EscenaJuego extends Phaser.Scene {
             this.shutdown();
             this.scene.start('EscenaFinalP2');
             this.scene.bringToTop('EscenaFinalP2');
+            lobbySocket.sendWS("winJ2")
         }
 
+        // Pausa el juego
+        if (Phaser.Input.Keyboard.JustDown(this.keyEsc)) {
+            this.scene.launch('PauseMenuScene');
+            this.scene.pause('GameScene');
+        }
     }
 
     createLifeItem() {

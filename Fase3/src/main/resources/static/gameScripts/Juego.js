@@ -315,10 +315,10 @@ class EscenaJuego extends Phaser.Scene {
         }
         //Disparo del player 1
         if ((Phaser.Input.Keyboard.JustDown(this.keyF))) {
-            if (this.player1.body.touching.left & this.lastP2direction == 'left') {
+            if (this.player2.body.touching.left & this.lastP2direction == 'left') {
 
             }
-            else if (this.player1.body.touching.right & this.lastP2direction == 'right') {
+            else if (this.player2.body.touching.right & this.lastP2direction == 'right') {
 
             }
             else {

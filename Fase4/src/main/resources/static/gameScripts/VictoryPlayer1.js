@@ -48,6 +48,10 @@ class VictoryScenePlayer1 extends Phaser.Scene {
             botonReiniciar.setScale(1);
         })
 
+        lobbySocket.close();
+        posSocket.close();
+        shootSocket.close();
+
 
     }
 }

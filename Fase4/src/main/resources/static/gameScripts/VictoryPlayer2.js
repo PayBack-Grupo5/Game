@@ -46,6 +46,10 @@ class VictoryScenePlayer2 extends Phaser.Scene {
         this.restartButtonContainer.on('pointerout', function () {
             botonReiniciarJ2.setScale(1);
         })
+
+        lobbySocket.close();
+        posSocket.close();
+        shootSocket.close();
     }
 }
 
