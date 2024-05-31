@@ -10,28 +10,11 @@ class Lobby extends Phaser.Scene {
     preload() {
         this.load.html('form', 'form.html'); // Asegúrate de que la ruta es correcta
         this.load.image('background', 'assets/images/nocheEstrellas.jpg'); // Asegúrate de que la imagen exista
-        this.load.image('botonReiniciar', 'assets/images/reiniciar.png');  // Asegúrate de que la imagen exista
     }
 
     create() {
         // Añadir imagen de fondo
         this.add.image(400, 300, 'background').setOrigin(0.5, 0.5).setDepth(-1).setScale(2.7);
-
-        // Añadir botón de reinicio
-        var botonVolver = this.add.image(700, 550, 'botonReiniciar');
-        botonVolver.setInteractive();
-
-        botonVolver.on('pointerdown', () => {
-            this.scene.start('MainMenuScene');
-        });
-
-        botonVolver.on('pointerover', () => {
-            botonVolver.setScale(1.2);
-        });
-
-        botonVolver.on('pointerout', () => {
-            botonVolver.setScale(1);
-        });
 
         // Crear y mostrar el formulario
         this.nameInput = this.add.dom(400, 300).createFromCache('form'); // Ajustar posición
@@ -78,7 +61,7 @@ class Lobby extends Phaser.Scene {
         }
 
         const showPlayer = (player) => {
-            $('#info-players').append('<div id="' + player.username + '"><span style="color:red">' + player.username + " está online " + '</span></div>');
+            $('#info-players').append('<div id="' + player.username + '"><span style="color:green">' + player.username + " está online " + '</span></div>');
         }
 
         setInterval(function getJugador(total) {
