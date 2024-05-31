@@ -1,0 +1,4 @@
+Para ejecutar el archivo .jar, que se encuentra en la siguiente ruta:
+...src\main\java\com\payback\demo\PayBackApplication.java
+
+Con ello debes ejecutar esa aplicación.java y en el navegador debes escribir LocalHost:8080
