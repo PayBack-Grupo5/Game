@@ -15,12 +15,12 @@ createLobby = function (scenePointer) {
         console.log("ERROR: " + e);
     };
 
-    lobbySocket.onclose = function() {
-        console.log("Cerrando Lobby socket...");
-        lobbySocket.close(); // Cierra el socket WebSocket
-        p1_isConnected = false;
-        p2_isConnected = false;
-    };
+	lobbySocket.onclose = function() {
+		console.log("Lobby socket cerrado");
+		p1_isConnected = false;
+		p2_isConnected = false;
+	};
+	
 
     lobbySocket.sendWS = function (data) {
         let message = {

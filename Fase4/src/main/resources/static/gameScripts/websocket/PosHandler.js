@@ -41,13 +41,13 @@ createPosSocket = function () {
         if (data.idPlayer == 1) {
             xP2 = data.p_x
             yP2 = data.p_y
-            lastSdirection = data.dir
+            lastP1direction = data.dir
             p2_isIdle = data.idle
         }
         if (data.idPlayer == 2) {
             xP1 = data.p_x
             yP1 = data.p_y
-            lastPdirection = data.dir
+            lastP2direction = data.dir
             p1_isIdle = data.idle
 
         }
