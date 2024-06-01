@@ -82,7 +82,7 @@ class MainMenuScene extends Phaser.Scene {
 
         // Si pulsamos, nos lleva a la escena de juego
         this.playButtonContainer.on('pointerdown', function () {
-            createLobby();
+            createLobby(this);
             this.scene.scene.stop("MainMenuScene");
             this.scene.scene.start('LobbyScene');
             menu_music.stop(menu_musicConfig)

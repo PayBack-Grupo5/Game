@@ -1,3 +1,23 @@
+var gameScenePointer;
+
+var xP1;
+var yP1;
+
+var xP2;
+var yP2;
+
+var lastP2direction;
+var lastP1direction;
+
+var p1_isIdle = true;
+var p2_isIdle = true;
+
+var saltandoP1 = false;
+var saltandoP2 = false;
+
+var p1_isShooting = false;
+var p2_isShooting = false;
+
 class EscenaJuego extends Phaser.Scene {
 
     constructor() {
@@ -94,6 +114,9 @@ class EscenaJuego extends Phaser.Scene {
     }
 
     create() {
+        console.log("Escena de juego creada!")
+        gameScenePointer = this;
+
         //Añadimos el fondo
         this.sky = this.add.image(400, 300, 'fondo');
         this.sky.setDepth(-1);
@@ -277,7 +300,7 @@ class EscenaJuego extends Phaser.Scene {
     update() {
 
         if (posSocketCreated) {
-            if (localPlayer == 2) {
+            if (localPlayer == 1) {
                 //Player 1 Movimiento
                 if (this.keyA.isDown) {
                     this.player2.setVelocityX(-160);
@@ -297,12 +320,31 @@ class EscenaJuego extends Phaser.Scene {
                 if (this.keyW.isDown && this.player2.body.blocked.down) {
                     saltandoP1 = true;
                     this.player2.setVelocityY(-500);
-                } if (this.player.body.touching.down) {
+                } if (this.player2.body.touching.down) {
                     saltandoP1 = false;
                 }
                 if (saltandoP1) {
-                    posSocket.sendWS(this.player2.x, this.player2.y, this.lastP2direction, localPlayer, false);
+                    posSocket.sendWS(this.player2.x, this.player2.y, this.lastP2direction, localPlayer);
                 }
+
+                //ACTUALIZAR MOVIMIENTO DEL PLAYER 2
+                this.player1.x = xP2;
+                this.player1.y = yP2;
+
+                //ACTUALIZAR DIRECCION DEL PLAYER 2
+                this.lastP1direction = lastP1direction
+
+                //ANIMACIONES PLAYER 2
+                if (p2_isIdle) {
+                    this.player1.anims.play('play1front');
+                }
+                else if (lastP1direction == 'left') {
+                    this.player1.anims.play('play1left', true);
+                }
+                else if (lastP1direction == 'right') {
+                    this.player1.anims.play('play1right', true);
+                }
+
                 //Disparo del player 1
                 if ((Phaser.Input.Keyboard.JustDown(this.keyF))) {
                     shootSocket.sendWS(localPlayer);
@@ -317,8 +359,14 @@ class EscenaJuego extends Phaser.Scene {
                     }
                 }
 
+                //ACTUALIZACION DISPARO PLAYER 2
+                if (p2_isShooting) {
+                    this.shootdisparoP1();
+                    p2_isShooting = false
+                }
+
             }
-            else if (localPlayer == 1) {
+            else if (localPlayer == 2) {
                 //Player 2 Movimiento
                 if (this.keyA.isDown) {
                     this.player1.setVelocityX(-160);
@@ -338,17 +386,34 @@ class EscenaJuego extends Phaser.Scene {
                 if (this.keyW.isDown && this.player1.body.blocked.down) {
                     saltandoP2 = true;
                     this.player1.setVelocityY(-500);
-                } if (this.setita.body.touching.down) {
+                } if (this.player1.body.touching.down) {
                     saltandoP2 = false;
                 }
                 if (saltandoP2) {
-                    posSocket.sendWS(this.setita.x, this.setita.y, this.lastSdirection, localPlayer);
+                    posSocket.sendWS(this.player1.x, this.player1.y, this.lastP1direction, localPlayer);
 
                 }
+                
+                //ACTUALIZACION POSICIONES
+                this.player2.x = xP1;
+                this.player2.y = yP1;
 
+                //ANIMACIONES
+                this.lastP2direction = lastP2direction
+
+                
+                if (p1_isIdle) {
+                    this.player2.anims.play('play2front');
+                }
+                else if (lastP2direction == 'left') {
+                    this.player2.anims.play('play2left', true);
+                }
+                else if (lastP2direction == 'right') {
+                    this.player2.anims.play('play2right', true);
+                }
 
                 //Disparo del player 2
-                if ((Phaser.Input.Keyboard.JustDown(this.keyP))) {
+                if ((Phaser.Input.Keyboard.JustDown(this.keyF))) {
                     shootSocket.sendWS(localPlayer);
                     if (this.player1.body.touching.left & this.lastP1direction == 'left') {
 
@@ -360,6 +425,11 @@ class EscenaJuego extends Phaser.Scene {
                         this.shootdisparoP1(this.player1.x, this.player1.y, this.lastP1direction);
 
                     }
+                }
+                if (p1_isShooting) {
+                    this.shootDisparoP1();
+                    p1_isShooting = false
+
                 }
 
 

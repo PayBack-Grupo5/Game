@@ -3,7 +3,8 @@ var localPlayer;
 var myLobbyTimeOut;
 var gameCreated = false;
 
-createLobby = function () {
+createLobby = function (scenePointer) {
+	lobbyScenePointer = scenePointer;
     lobbySocket = new WebSocket("ws://localhost:8080/payback/lobby");
 
     lobbySocket.onopen = function () {
@@ -56,8 +57,8 @@ createLobby = function () {
         if (data.type === "play") {
             if (!gameCreated) {
                 lobbyScenePointer.scene.start('GameScene');
-                this.scene.scene.start('PauseMenuScene');
-                this.scene.scene.sleep('PauseMenuScene');
+               // this.scene.scene.start('PauseMenuScene');
+               // this.scene.scene.sleep('PauseMenuScene');
                 createPosSocket();
                 createShootSocket();
                 gameCreated = true;

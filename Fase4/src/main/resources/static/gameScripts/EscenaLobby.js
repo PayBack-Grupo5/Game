@@ -1,3 +1,6 @@
+var lobbyScenePointer;
+
+
 var client_player = 0;
 var p1_isConnected = false;
 var p2_isConnected = false;
@@ -33,6 +36,7 @@ class EscenaLobby extends Phaser.Scene {
     }
 
     create() {
+        lobbyScenePointer = this;
 
         this.fondo = this.add.image(400, 300, 'lobbyImage');
         this.fondo.setDepth(-1);
