@@ -23,7 +23,7 @@ class EscenaLobby extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image("lobbyImage", "assets/images/WaitingPlayers.png");
+        this.load.image("lobbyImage", "assets/images/titulo.jpeg");
 
         this.load.image("J1_conectado", "assets/images/J1_conectado.png");
         this.load.image("J2_conectado", "assets/images/J2_conectado.png");
