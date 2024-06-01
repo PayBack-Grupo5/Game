@@ -375,6 +375,8 @@ class EscenaJuego extends Phaser.Scene {
                     }
                     p2_isShooting = false
                 }
+                console.log("Player1 creado:", this.player1);
+                console.log("Player2 creado:", this.player2);
 
             }
             else if (localPlayer == 2) {
@@ -452,7 +454,8 @@ class EscenaJuego extends Phaser.Scene {
                     p1_isShooting = false
 
                 }
-
+                console.log("Player1 creado:", this.player1);
+                console.log("Player2 creado:", this.player2);
 
             }
         }

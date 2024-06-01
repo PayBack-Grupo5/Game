@@ -38,13 +38,13 @@ createPosSocket = function () {
 
         var data = JSON.parse(msg.data);
 
-        if (data.idPlayer == 1) {
+        if (data.idPlayer == 2) {
             xP2 = data.p_x
             yP2 = data.p_y
             lastP1direction = data.dir
             p2_isIdle = data.idle
         }
-        if (data.idPlayer == 2) {
+        if (data.idPlayer == 1) {
             xP1 = data.p_x
             yP1 = data.p_y
             lastP2direction = data.dir
