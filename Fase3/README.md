@@ -22,7 +22,7 @@ Versión: 0.6.1
 Grupo 5
 
 Escrito por:
-Escrito por: María González Martínez-Cubells: m.gonzalezma.2020@alumnos.urjc.es / https://github.com/mgmcubells 
+María González Martínez-Cubells: m.gonzalezma.2020@alumnos.urjc.es / https://github.com/mgmcubells 
 José Antonio Moratalla Zabala: ja.moratalla.2020@alumnos.urjc.es / https://github.com/janmorata 
 Javier Luis Moreno Erustes: jl.moreno.2020@alumnos.urjc.es / https://github.com/ChonLarsen 
 Carlos Vega San Román: c.vegas.2020@alumnos.urjc.es
