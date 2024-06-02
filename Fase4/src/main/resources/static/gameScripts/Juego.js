@@ -21,6 +21,9 @@ var saltandoP2 = false;
 var p1_isShooting = false;
 var p2_isShooting = false;
 
+var heartX;
+var heartY;
+
 class EscenaJuego extends Phaser.Scene {
 
     constructor() {
@@ -509,7 +512,8 @@ class EscenaJuego extends Phaser.Scene {
             this.scene.pause('GameScene');
         }
     }
-
+    
+    /*
     createLifeItem() {
         if (!this.lifeItemAppeared) {
             const x = Phaser.Math.Between(100, 700);
@@ -522,9 +526,12 @@ class EscenaJuego extends Phaser.Scene {
 
             this.physics.add.overlap(this.lifeItem, this.player1, this.hitLifeItem1, null, this);
             this.physics.add.overlap(this.lifeItem, this.player2, this.hitLifeItem2, null, this);
+            heartSocketSocket.sendWS(x,y);
 
+        }else{
+            this.lifeItem.create(heartX,heartY);
         }
-    }
+    }*/
 
     hitLifeItem1(lifeItem, player) {
         lifeItem.destroy(); // Elimina el corazón del juego
