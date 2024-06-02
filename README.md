@@ -622,13 +622,8 @@ Carlos lidera el equipo de modelado, encargado de crear los modelos bidimensiona
 ### DISEÑO
 ##### Para el diseño del juego se ha usado la inteligencia artificial para la creación de fondos, un fondo donde podemos observar que es el antiguo oeste mezclado con toques futurísicos. Los botones y letreros se han hecho en dorado para que destaquen. 
 ### CONTROLES
-#### JUGADOR 1
+#### JUGADOR
 ##### Salto- W
 ##### Izquierda - A
 ##### Derecha - D
 ##### disparo - F
-#### JUGADOR 2
-##### Salto- Flecha arriba
-##### Izquierda - Flecha izq.
-##### Derecha - Flecha dcha.
-##### disparo - P
