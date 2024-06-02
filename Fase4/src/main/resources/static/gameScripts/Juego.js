@@ -125,19 +125,17 @@ class EscenaJuego extends Phaser.Scene {
         this.sky.setDepth(-1);
         this.sky.setDisplaySize(800, 600);
 
-
+        /*
         //Añadimos el boton de pausa
         this.pauseImage = this.add.image(0, 0, 'Pausa');
         //Lo hacemos interactivo
         this.pauseButtonContainer = this.add.container(400, 50, [this.pauseImage]);
         this.pauseButtonContainer.setSize(this.pauseImage.height, this.pauseImage.width);
-        this.pauseButtonContainer.setInteractive();
 
         if (this.pauseButtonContainer) {
             this.pauseButtonContainer.on('pointerdown', () => {
                 if (this.scene && this.scene.wake && this.scene.pause) {
-                    this.scene.wake('PauseMenuScene');
-                    this.scene.bringToTop('PauseMenuScene');
+                    this.scene.launch('PauseMenuScene');
                     this.scene.pause('GameScene');
                 }
             });
@@ -151,7 +149,7 @@ class EscenaJuego extends Phaser.Scene {
             this.pauseButtonContainer.on('pointerout', () => {
                 this.pauseImage.setScale(1);
             });
-        }
+        }*/
 
 
         //Añadimos las plataformas
