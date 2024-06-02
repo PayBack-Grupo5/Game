@@ -616,7 +616,7 @@ Carlos lidera el equipo de modelado, encargado de crear los modelos bidimensiona
 ##### Esta última escena son los créditos, donde se nombran a los creadores del videojuego.
 ![Controles](Capturas/Creditos.jpeg)
 ###
-### DIAGRAMA DE ESCENAS
+### DIAGRAMA DE ESTADOS
 ![Escenas](Capturas/diagrama_de_estados.jpg)
 ###
 ### DIAGRAMA DE CLASES
