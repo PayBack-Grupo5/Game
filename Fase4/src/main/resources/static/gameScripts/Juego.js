@@ -297,6 +297,7 @@ class EscenaJuego extends Phaser.Scene {
     //Metodo para disparo de player2
     shootdisparoP2(xpos, ypos, direc) {
         this.disparosP2.fireBulletP2(xpos, ypos, direc);
+
     }
 
 
@@ -363,7 +364,7 @@ class EscenaJuego extends Phaser.Scene {
                 }
 
                 //ACTUALIZACION DISPARO PLAYER Drch
-                if (p2_isShooting) {
+                if (p1_isShooting) {
                     if (this.player1.body.touching.left & this.lastP1direction == 'left') {
 
                     }
@@ -373,7 +374,7 @@ class EscenaJuego extends Phaser.Scene {
                     else {
                         this.shootdisparoP1(this.player1.x, this.player1.y, this.lastP1direction);
                     }
-                    p2_isShooting = false
+                    p1_isShooting = false;
                 }
                 console.log("Player1 creado:", this.player1);
                 console.log("Player2 creado:", this.player2);
@@ -439,8 +440,7 @@ class EscenaJuego extends Phaser.Scene {
 
                     }
                 }
-                if (p1_isShooting) {
-                    shootSocket.sendWS(localPlayer);
+                if (p2_isShooting) {
                     if (this.player2.body.touching.left & this.lastP2direction == 'left') {
 
                     }
@@ -448,10 +448,11 @@ class EscenaJuego extends Phaser.Scene {
 
                     }
                     else {
-                        this.shootdisparoP1(this.player2.x, this.player2.y, this.lastP2direction);
+                        this.shootdisparoP2(this.player2.x, this.player2.y, this.lastP2direction);
+                        
 
                     }
-                    p1_isShooting = false
+                    p2_isShooting = false;
 
                 }
                 console.log("Player1 creado:", this.player1);
