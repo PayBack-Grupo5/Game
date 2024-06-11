@@ -1,9 +1,11 @@
 var posSocket;
 var posSocketCreated = false;
 
+// Obtiene la dirección del servidor desde la URL actual de la página
+var serverIP = window.location.hostname;
 
 createPosSocket = function () {
-    posSocket = new WebSocket("ws://localhost:8080/payback/position");
+    posSocket = new WebSocket(`ws://${serverIP}:8080/payback/position`);
 
     posSocket.onopen = function () {
         console.log("Websocket de posicion creado");
