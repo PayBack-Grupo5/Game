@@ -400,7 +400,7 @@ Este diagrama de flujo enseña las distintas pantallas que tiene el juego y sus 
 ### Menú Principal
 
 El menú principal de Payback es la puerta de entrada a la experiencia de juego, ofreciendo una interfaz sencilla pero efectiva para que los jugadores puedan comenzar a jugar rápidamente. Este consta de varios elementos: 
-![Menu](.../Capturas/Fase3/Juego.jpg)
+![Menu](Capturas/Juego.jpg)
 
 
 Título del videojuego (Payback) ubicado en la parte superior de la pantalla, el título "Payback" se presenta de manera prominente, destacando la identidad del juego y estableciendo el tono para la experiencia que está por venir.
@@ -422,28 +422,28 @@ Permite a los jugadores conocer a los autores.
 
 ### Menú Controles
 Se muestran los controles para ambos jugadores, movimiento y disparo para cada personaje.
-![MenuCon](Capturas/Fase3/Controles.jpg)
+![MenuCon](Capturas/Controles.jpg)
 
 ### Menú Instrucciones
 Se muestran a los jugadores cómo jugar las partidas y pequeños consejos a seguir.
-![MenuInstrucciones](Capturas/Fase3/Tutorial.jpg)
+![MenuInstrucciones](Capturas/Tutorial.jpg)
 
 ### Menú Créditos
 Aquí se muestran los nombres de los integrantes del equipo.
-![MenuCred](Capturas/Fase3/Creditos.jpg)
+![MenuCred](Capturas/Creditos.jpg)
 
 ### Menú de Pausa
 
 El menú de pausa proporciona a los jugadores la capacidad de tomar un respiro durante la partida y realizar acciones adicionales sin interferir con la acción del juego
 Acceso con la tecla ‘Esc’ los jugadores pueden pausar la partida presionando la tecla ‘Esc’ en su teclado o con el botón de Pause incluido en la parte superior de la pantalla. 
 Dentro del menú de pausa, los jugadores tienen la opción de continuar la partida o salir de la partida, con los botones explicados anteriormente.
-![MenuPausa](Capturas/Fase3/Pausa.jpg)
+![MenuPausa](Capturas/Pausa.jpg)
 
 ### Menú de Victoria
 
 En esta escena se muestra que jugador ha ganado y un botón para regresar al menú principal
-![victoria_J1](Capturas/Fase3/VicJ1.jpg)
-![victoria_J2](Capturas/Fase3/VicJ2.jpg)
+![victoria_J1](Capturas/VicJ1.jpg)
+![victoria_J2](Capturas/VicJ2.jpg)
 
 
 # Escenarios
@@ -452,7 +452,7 @@ Los escenarios en Payback ofrecen una variedad de entornos únicos donde se desa
 
 Los escenarios cuentan con diferentes niveles en el eje y  están compuestos por plataformas flotantes, agregando una dimensión vertical a la jugabilidad y permitiendo estrategias de movimiento y combate complejas. Al inicio de la partida, cada jugador aparece en puntos distintos del mapa, lo que fomenta la estrategia al comenzar el juego.
 
-![Juego](Capturas/Fase3/Juego.jpeg)
+![Juego](Capturas/Juego.jpeg)
 
 # Modos de juego
 
