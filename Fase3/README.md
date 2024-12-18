@@ -400,7 +400,7 @@ Este diagrama de flujo enseña las distintas pantallas que tiene el juego y sus 
 ### Menú Principal
 
 El menú principal de Payback es la puerta de entrada a la experiencia de juego, ofreciendo una interfaz sencilla pero efectiva para que los jugadores puedan comenzar a jugar rápidamente. Este consta de varios elementos: 
-![Menu](Capturas/Fase3/Juego.jpg)
+![Menu](.../Capturas/Fase3/Juego.jpg)
 
 
 Título del videojuego (Payback) ubicado en la parte superior de la pantalla, el título "Payback" se presenta de manera prominente, destacando la identidad del juego y estableciendo el tono para la experiencia que está por venir.
