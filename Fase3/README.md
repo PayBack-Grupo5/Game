@@ -1,12 +1,14 @@
-# PAYBACK
-
-
-
+# PaybackGame
+Juegos en Red
 
 Game Design Document
 
 
-Versión: 0.6.1
+![payback](https://github.com/user-attachments/assets/f8581f69-3f3c-4251-a570-52467556726a)
+
+
+
+Versión: 0.7.1
 
 
 
@@ -19,14 +21,15 @@ Versión: 0.6.1
 
 
 
-Grupo 5
+Grupo 8
 
 Escrito por:
-María González Martínez-Cubells: m.gonzalezma.2020@alumnos.urjc.es / https://github.com/mgmcubells 
-José Antonio Moratalla Zabala: ja.moratalla.2020@alumnos.urjc.es / https://github.com/janmorata 
-Javier Luis Moreno Erustes: jl.moreno.2020@alumnos.urjc.es / https://github.com/ChonLarsen 
+María González Martínez-Cubells: m.gonzalezma.2020@alumnos.urjc.es / https://github.com/mgmcubells
+José Antonio Moratalla Zabala: ja.moratalla.2020@alumnos.urjc.es / https://github.com/janmorata
+Javier Luis Moreno Erustes: jl.moreno.2020@alumnos.urjc.es / https://github.com/ChonLarsen
 Carlos Vega San Román: c.vegas.2020@alumnos.urjc.es
-Índice
+
+# Índice
 
 Resumen	4
 Concepto del juego	4
@@ -75,14 +78,6 @@ Música y efectos de sonido	21
 Referencias de otros videojuegos	21
 
 Monetización	22
-
-Multijugador	22
-API-REST	22
-Web Sockets	23
-Lobby	23
-Posición	24
-Disparo	24
-
 Equipo	25
 
 
@@ -108,18 +103,18 @@ Equipo	25
 
 
 
-Resumen
+# Resumen
 
-Este es el  documento de diseño del juego Payback, diseñado y desarrollado por Grupo 5, conformado por los miembros: María González Martínez-Cubells, José Antonio Moratalla Zabala, Javier Luis Moreno Erustes, Carlos Vega San Román. 
+Este es el  documento de diseño del juego Payback, diseñado y desarrollado por Grupo 8, conformado por los miembros: María González Martínez-Cubells, José Antonio Moratalla Zabala, Javier Luis Moreno Erustes, Carlos Vega San Román. 
 Se trata de un juego de lucha y plataformas multijugador donde para ganar el jugador deberá derrotar a su rival acabando con todas sus vidas.  Es un videojuego diseñado y desarrollado para PC con gráficos 2D.
 
 
-Concepto del juego
+# Concepto del juego
 
 Payback es un emocionante juego de lucha en 2D que permite enfrentamientos de hasta dos jugadores simultáneamente. En este dinámico juego, los jugadores asumen el control de diversos héroes, cada uno con habilidades y características únicas, participando en intensas batallas multijugador. El objetivo principal es utilizar estrategias y habilidades de combate para eliminar a los oponentes, con la meta final de ser el último jugador en pie. Payback destaca por su amplia gama de personajes, cada uno con su propio conjunto de movimientos especiales y estilo de pelea, lo que añade profundidad y variedad a la experiencia de juego. Además, el juego ofrece una diversidad de arenas con distintos diseños y características que afectan la jugabilidad, manteniendo las batallas frescas y desafiantes. Para mantener el interés de los jugadores a largo plazo, Payback incluye varios modos de juego, desde combates rápidos y frenéticos hasta torneos estructurados, proporcionando así una experiencia rica y envolvente para todos los aficionados a los juegos de lucha.
 
 
-Características del juego
+# Características del juego
 
 Payback, el juego de lucha en 2D, se distingue por una serie de características que lo hacen atractivo y divertido para los jugadores. A continuación, se describen algunas de sus principales características:
 
@@ -145,10 +140,8 @@ Los controles están diseñados para ser fáciles de aprender pero difíciles de
 Actualizaciones y contenido adicional
 El juego se mantiene fresco mediante actualizaciones regulares que pueden incluir nuevos personajes, arenas y modos de juego, asegurando que siempre haya algo nuevo para los jugadores.
 
-Estas características combinadas hacen de Payback un juego atractivo tanto para los aficionados a los juegos de lucha como para aquellos que buscan una experiencia divertida y competitiva con amigos.
 
-
-Género
+# Género
 
 Payback pertenece al género de juegos de lucha en 2D, un subgénero de los juegos de acción que se caracteriza por enfrentar a dos o más personajes en combates directos. Estos juegos se centran en el control preciso del personaje, la ejecución de movimientos especiales y combinaciones, así como en la estrategia y la táctica para derrotar al oponente.
 
@@ -163,7 +156,7 @@ Plataformas
 Cada nivel se compone de una pantalla estática con perspectiva lateral, donde unas cuantas plataformas están colocadas a diferentes alturas. Estas funcionan como suelos y paredes, y los jugadores pueden moverse por la pantalla saltando de una a otra, lo que ayuda a añadir una dimensión vertical a la jugabilidad y más complejidad. Las plataformas no solo sirven como terreno de combate, sino también como obstáculos y oportunidades estratégicas. Por ejemplo, los jugadores pueden usar las plataformas para evadir ataques, planear emboscadas desde arriba o forzar a sus oponentes a posiciones desfavorables. La variedad en el diseño de los niveles y la disposición de las plataformas aseguran que cada combate sea único y lleno de sorpresas.
 
 
-Público objetivo
+# Público objetivo
 
 Payback es un juego enfocado a jugadores que buscan competitividad y frenetismo contra otros usuarios. Está diseñado para atraer a una amplia variedad de jugadores, desde aficionados a los juegos de lucha y retro hasta jóvenes jugadores y entusiastas de la competencia. Su combinación de combate en 2D, elementos de disparos y plataformas, junto con una estética visual atractiva y una jugabilidad accesible pero profunda, lo hacen adecuado para una audiencia diversa que busca tanto diversión casual como competencia intensa. 
 
@@ -177,7 +170,7 @@ Foros y redes sociales: el videojuego cuenta con foros en línea y presencia en 
 Eventos y torneos: El juego organiza regularmente eventos y torneos en los que los jugadores pueden participar para ganar recompensas exclusivas, demostrar sus habilidades en el combate y competir por el reconocimiento dentro de la comunidad. Estos eventos fomentan la participación activa de los jugadores, promueven la competitividad saludable y fortalecen el sentido de comunidad al reunir a jugadores de diferentes partes del mundo para enfrentarse en desafíos emocionantes.
 
 
-Jugabilidad
+# Jugabilidad
 
 La jugabilidad de Payback se distingue por su dinamismo y profundidad, ofreciendo una experiencia envolvente tanto para jugadores casuales como para aquellos más dedicados. Aquí se detallan los principales aspectos de la jugabilidad:
 
@@ -194,7 +187,7 @@ Payback tendrá diferentes niveles donde competir. Cada uno de ellos tendrá una
 El jugador controlará al personaje que escoja, y podrá desplazarse por el escenario, andando horizontalmente por las distintas plataformas, y verticalmente saltando a las diferentes alturas que se disponen en el nivel.
 
 
-Referencias a otros videojuegos
+# Referencias a otros videojuegos
 
 Payback se inspira en Super Smash Bros en varios aspectos de su jugabilidad, como el combate frenético y rápido en Payback el combate es rápido y frenético. Los jugadores se enfrentan en arenas de batalla donde el objetivo es derrotar a los oponentes. Ambos juegos fomentan la acción rápida y recompensan la habilidad y la destreza del jugador en el combate cuerpo a cuerpo.
 
@@ -207,7 +200,7 @@ La selección de personajes es variada y distintiva, los jugadores pueden elegir
 
 
 
-Historia y trasfondo
+# Historia y trasfondo
 
 La historia y el trasfondo de Payback se desarrollan en un mundo inmerso en el caos y el conflicto, donde diferentes fuerzas militares y facciones luchan por el poder y la supremacía. La trama se centra en la competencia entre personajes, cada uno con sus propios motivos y objetivos, que los impulsan a participar en intensos enfrentamientos uno contra uno.
 El trasfondo de cada personaje se construye en torno a su origen y contexto histórico, que varía desde soldados de élite de la II Guerra Mundial hasta guerreros modernos y futuristas. Cada personaje tiene una historia única que refleja su pasado, sus experiencias y sus motivaciones personales para participar en la contienda de Payback. Las motivaciones para actuar por cada personaje del juego pueden ser diversas:
@@ -227,8 +220,9 @@ Para otros, la participación puede ser una cuestión de supervivencia, donde se
 Redención
 Algunos personajes pueden buscar redimirse de acciones pasadas o errores cometidos, y ven una oportunidad para demostrar su valía y cambiar su destino.
 
-Estas motivaciones personales agregan profundidad y complejidad a la trama de Payback, y proporcionan un contexto emocional y psicológico para las intensas batallas que se desarrollan en el juego. 
-Mecánicas de juego
+
+
+# Mecánicas de juego
 
 Payback es un juego en el que dos jugadores controlan a distintos personajes con los que deben enfrentarse hasta que uno de los dos acabe sin vidas. Estos personajes lucharán en distintos niveles creados por plataformas colocadas en diferentes posiciones y alturas. Cada combate está diseñado para ser una mezcla intensa de estrategia, habilidad y rapidez.
 
@@ -260,7 +254,7 @@ Se podrá elegir a diferentes personajes preestablecidos con armas únicas para 
 La combinación de combate rápido, plataformas estratégicas y una amplia variedad de personajes y armas, asegura que cada partida de Payback sea emocionante y única. Los jugadores deben utilizar su agilidad, precisión y tácticas inteligentes para dominar el campo de batalla y vencer a su oponente. La jugabilidad accesible pero profunda garantiza que tanto los nuevos jugadores como los veteranos del género encuentren algo que disfrutar.
 
 
-Personajes
+# Personajes
 
 El juego contará con una amplia variedad de personajes, cada uno equipado con armas de fuego únicas y habilidades especiales. Cada personaje tendrá unos corazones de vida que indica su resistencia en combate, y su estética será bélica, representando figuras militares como soldados, cadetes, sargentos y otros rangos. Los personajes podrán provenir de diferentes épocas y lugares del mundo, lo que añade diversidad y riqueza histórica al juego.
 
@@ -292,7 +286,7 @@ Una cámara estática reduce la carga de procesamiento en comparación con cáma
 En resumen, la cámara estática en Payback juega un papel fundamental en la creación de una experiencia de juego clara, justa y centrada en la acción. Al proporcionar una visión constante y completa del campo de batalla, permite a los jugadores enfocarse en el combate y la estrategia sin distracciones. Esta elección de diseño mejora la estabilidad del juego, facilita el seguimiento de los personajes y proyectiles, y asegura una experiencia visual coherente y equilibrada para todos los jugadores.
 
 
-Periféricos
+# Periféricos
 
 Para jugar a Payback, el periférico esencial es el teclado. El teclado es fundamental para controlar los movimientos y acciones de los personajes de manera precisa y efectiva.
 El movimiento con el uso de teclas de dirección: Las teclas ‘W’, ‘A’, ‘D’ se utilizan para mover al personaje en las cuatro direcciones:
@@ -310,7 +304,7 @@ El teclado permite una entrada rápida y precisa, esencial para ejecutar movimie
 La capacidad de reasignar teclas permite a los jugadores crear una configuración que se adapte mejor a su estilo de juego, aumentando la comodidad y la eficacia durante el combate.
 
 
-Controles
+# Controles
 
 En Payback, los controles del juego están diseñados para ser intuitivos y accesibles, proporcionando a los jugadores un manejo preciso y rápido durante el combate. La disposición de las teclas está optimizada para permitir una fluida ejecución de movimientos y acciones. 
 
@@ -329,7 +323,7 @@ La elección de estos botones como botones de disparo permite un acceso rápido 
 La configuración de controles de Payback está diseñada para maximizar la rapidez y la comodidad del jugador. Esta disposición permite un control preciso de los movimientos y acciones, facilitando una jugabilidad fluida y estratégica. 
 
 
-Movimiento y físicas
+# Movimiento y físicas
 
 En Payback, el movimiento y las físicas son aspectos fundamentales que contribuyen a la jugabilidad dinámica y desafiante del juego. 
 
@@ -374,14 +368,12 @@ Las interacciones entre elementos y las colisiones añaden profundidad táctica 
 
 
 
-
-
-Interfaz
+# Interfaz
 
 En Payback, cada pantalla juega un papel crucial en la experiencia de juego, proporcionando información, opciones y desafíos para los jugadores. Aquí se detallan las distintas pantallas del juego, sus transiciones y su utilidad:
 
 
-Diagrama de Flujo
+### Diagrama de Flujo
 
 Este diagrama de flujo enseña las distintas pantallas que tiene el juego y sus transiciones entre ellas. El diagrama proporciona una guía visual clara de las pantallas del juego y las transiciones entre ellas, ayudando a los jugadores a navegar por el juego de manera efectiva y disfrutar de una experiencia de juego fluida y envolvente.
 
@@ -389,6 +381,7 @@ Este diagrama de flujo enseña las distintas pantallas que tiene el juego y sus 
 
 
 
+![Diagrama](Capturas/diagrama_de_estados.jpg)
 
 
 
@@ -404,52 +397,69 @@ Este diagrama de flujo enseña las distintas pantallas que tiene el juego y sus 
 
 
 
-Menú Principal
+### Menú Principal
 
 El menú principal de Payback es la puerta de entrada a la experiencia de juego, ofreciendo una interfaz sencilla pero efectiva para que los jugadores puedan comenzar a jugar rápidamente. Este consta de varios elementos: 
-
+![Menu](Fase3/Capturas/menu.jpeg)
 
 
 Título del videojuego (Payback) ubicado en la parte superior de la pantalla, el título "Payback" se presenta de manera prominente, destacando la identidad del juego y estableciendo el tono para la experiencia que está por venir.
 
-Dos botones de navegación: jugar y salir del juego. 
+Cuatro botones de navegación: jugar y salir del juego. 
 
 El botón "Jugar"
 Permite a los jugadores acceder al menú de selección de personajes, donde podrán prepararse para la partida.
 
-El botón "Salir del Juego"
-Permite a los jugadores abandonar el juego y volver al escritorio u otro destino fuera del juego.
+El botón "Controles"
+Permite a los jugadores conocer los controles de la partida.
+
+El botón "Instrucciones"
+Permite a los jugadores conocer las instrucciones del videojuego.
+
+El botón "Créditos"
+Permite a los jugadores conocer a los autores.
 
 
-Menú de Selección del Personaje
+### Menú Controles
+Se muestran los controles para ambos jugadores, movimiento y disparo para cada personaje.
+![MenuCon](Capturas/menuContr.jpeg)
 
-El menú de selección del personaje es un espacio interactivo donde los jugadores pueden personalizar su experiencia de juego eligiendo a su personaje. Cada jugador puede elegir a su personaje favorito de entre una variedad de opciones disponibles,  pueden tener habilidades y características únicas que influyen en el estilo de juego.
+### Menú Instrucciones
+Se muestran a los jugadores cómo jugar las partidas y pequeños consejos a seguir.
+![MenuInstrucciones](Capturas/menuInst.jpeg)
 
-Una vez que ambos jugadores han seleccionado sus personajes, pueden confirmar su preparación presionando el botón "Listo" ubicado en la parte inferior de la pantalla, cuando ambos jugadores están listos, se activa el inicio de la partida.
+### Menú Créditos
+Aquí se muestran los nombres de los integrantes del equipo.
+![MenuCred](Capturas/menuCred.jpeg)
 
-
-Menú de Pausa
+### Menú de Pausa
 
 El menú de pausa proporciona a los jugadores la capacidad de tomar un respiro durante la partida y realizar acciones adicionales sin interferir con la acción del juego
-Acceso con la tecla ‘Esc’ los jugadores pueden pausar la partida presionando la tecla ‘Esc’ en su teclado. 
-Dentro del menú de pausa, los jugadores tienen la opción de continuar la partida o salir del juego, con los botones explicados anteriormente.
+Acceso con la tecla ‘Esc’ los jugadores pueden pausar la partida presionando la tecla ‘Esc’ en su teclado o con el botón de Pause incluido en la parte superior de la pantalla. 
+Dentro del menú de pausa, los jugadores tienen la opción de continuar la partida o salir de la partida, con los botones explicados anteriormente.
+![MenuPausa](Capturas/menuPausa.jpeg)
+
+### Menú de Victoria
+
+En esta escena se muestra que jugador ha ganado y un botón para regresar al menú principal
+![victoria_J1](Capturas/victoria_J1.jpeg)
+![victoria_J2](Capturas/victoria_J2.jpeg)
 
 
-
-
-Escenarios
+# Escenarios
 
 Los escenarios en Payback ofrecen una variedad de entornos únicos donde se desarrolla la acción del juego.  Los jugadores pueden interactuar con el entorno para obtener ventajas tácticas, como refugiarse detrás de obstáculos o utilizar elementos del entorno para emboscar a sus oponentes.
 
 Los escenarios cuentan con diferentes niveles en el eje y  están compuestos por plataformas flotantes, agregando una dimensión vertical a la jugabilidad y permitiendo estrategias de movimiento y combate complejas. Al inicio de la partida, cada jugador aparece en puntos distintos del mapa, lo que fomenta la estrategia al comenzar el juego.
 
+![Juego](Capturas/juego.jpeg)
 
-Modos de juego
+# Modos de juego
 
 El juego principal de Payback es el modo multijugador, que permite a dos jugadores enfrentarse entre sí en línea o en local. Los jugadores pueden disfrutar del juego en un emocionante enfrentamiento uno contra uno, ya sea en línea, enfrentándose a otros jugadores de todo el mundo, o en local, jugando con amigos en la misma consola o PC.
 
 
-Progresión y personalización
+# Progresión y personalización
 
 El juego ofrece un sistema de progresión y personalización que permite a los jugadores desbloquear nuevos personajes, trajes y accesorios a medida que avanzan en el juego.
 Completar desafíos y alcanzar logros en el juego otorga a los jugadores recompensas especiales, como monedas o puntos de experiencia, que pueden usarse para desbloquear contenido adicional.
@@ -463,10 +473,7 @@ Completar desafíos y alcanzar logros en el juego otorga a los jugadores recompe
 
 
 
-
-
-
-Arte y sonido
+# Arte y sonido
 
 En Payback, el arte y el sonido se fusionan para crear un ambiente vívido y evocador que sumerge a los jugadores en un mundo de conflicto y desafío.
 
@@ -511,10 +518,7 @@ El pixel art es un estilo de arte digital que utiliza píxeles individuales para
 
 
 
-
-
-
-Monetización
+# Monetización
 
 En Payback, la monetización se basa en una estrategia que equilibra la oferta de una única compra.
 
@@ -525,18 +529,7 @@ La compra única garantiza a los jugadores que obtendrán una experiencia comple
 La estrategia de monetización busca encontrar un equilibrio entre el precio inicial del juego y el valor percibido por los jugadores, asegurando que la compra única ofrezca una experiencia de juego completa y satisfactoria.
 
 
-
-
-
-
-
-
-
-
-Multijugador
-
-API-REST
-
+# API-REST
 El código implementa una API REST utilizando Spring Boot en Java, diseñada para gestionar un "lobby" de usuarios y mensajes dentro de un entorno de chat. Esta API REST ofrece una serie de endpoints que permiten realizar operaciones CRUD (Crear, Leer, Actualizar, Eliminar) sobre usuarios y mensajes, facilitando una comunicación eficiente y estructurada entre el cliente y el servidor. Los métodos HTTP adecuados, como GET, POST y DELETE, se utilizan para cada operación, asegurando que las interacciones sean claras y sigan los estándares establecidos para APIs RESTful.
 
 La API incluye funcionalidades clave para la gestión del chat y del lobby de usuarios. Por ejemplo, el endpoint GET /lobby permite recuperar todos los mensajes almacenados en el chat, devolviendo una lista de cadenas de texto que representan estos mensajes. Asimismo, el endpoint GET /lobby/jugadores proporciona una colección de objetos User, que representan a todos los usuarios registrados en el lobby. Para la creación de nuevos recursos, los endpoints POST /lobby/mensaje y POST /lobby permiten añadir nuevos mensajes y usuarios respectivamente. El método POST /lobby/mensaje recibe un objeto Message en el cuerpo de la solicitud, lo añade al chat y lo almacena, mientras que POST /lobby crea un nuevo usuario, asignándole un ID único y almacenando en la lista de usuarios.
@@ -545,31 +538,26 @@ Además de la creación y recuperación de recursos, la API permite obtener info
 
 En resumen, esta API REST está diseñada para ser robusta y fácil de usar, permitiendo una gestión eficiente del lobby y del chat de usuarios. Al seguir las buenas prácticas de desarrollo de APIs REST, como el uso adecuado de los métodos HTTP y los códigos de estado, se asegura que los clientes de la API puedan entender y manejar adecuadamente las respuestas del servidor. Esto facilita una integración fluida con otras aplicaciones o servicios, haciendo de esta API una herramienta valiosa para cualquier aplicación que requiera la gestión de usuarios y mensajes en tiempo real.
 
-Web Sockets
-
-Lobby
-La clase WS_Lobby se encarga de gestionar las conexiones WebSocket y de mantener un seguimiento de los usuarios conectados. Utiliza un ConcurrentHashMap para almacenar las sesiones de los usuarios, lo que permite un acceso seguro y concurrente. Además, define dos variables, user1_id y user2_id, para identificar a los dos usuarios principales en el lobby.
-
-Cuando se establece una nueva conexión mediante el método afterConnectionEstablished, el manejador verifica si hay menos de dos usuarios conectados. Si es así, la nueva sesión se agrega al mapa de usuarios. Dependiendo de si user1_id o user2_id están disponibles, la sesión se asigna a una de estas variables y se envía un mensaje JSON al cliente indicando su rol (jugador 1 o jugador 2). Si ambos usuarios están conectados, se envía un mensaje adicional indicando que ambos jugadores están listos.
-
-El método handleTextMessage procesa los mensajes recibidos de los usuarios. Utiliza ObjectMapper para convertir el mensaje de texto en un objeto JSON y determinar el tipo de mensaje. Dependiendo del tipo (play, winJ1, winJ2), el manejador envía mensajes correspondientes a todos los usuarios conectados, notificándoles del estado actual del juego.
-
-Posición
-El código WS_Position implementa un manejador de WebSocket utilizando Spring Boot, que facilita la comunicación en tiempo real entre el servidor y los clientes. Esta clase extiende TextWebSocketHandler para manejar mensajes de texto y gestionar conexiones WebSocket. El manejador mantiene un mapa concurrente (ConcurrentHashMap) para almacenar las sesiones WebSocket de los usuarios. Este mapa garantiza la seguridad en el acceso concurrente, permitiendo que múltiples hilos lean y escriban en él sin causar inconsistencias.
-
-La función createPosSocket en JavaScript establece y maneja una conexión WebSocket desde el lado del cliente. La función createPosSocket crea un nuevo WebSocket apuntando a la URL del servidor. Los eventos de conexión (onopen), error (onerror), y cierre (onclose) se manejan con funciones específicas que registran mensajes en la consola para fines de depuración.
-
-La implementación de WebSocket tanto en el servidor (con Java y Spring Boot) como en el cliente (con JavaScript) permite una comunicación bidireccional en tiempo real. El servidor gestiona las conexiones y reenvía los mensajes a los clientes conectados, mientras que el cliente envía y recibe actualizaciones de posición, manteniendo a los usuarios sincronizados. Esta arquitectura es esencial para aplicaciones que requieren interacciones dinámicas y en tiempo real, como juegos en línea y sistemas de seguimiento de posiciones.
-
-Disparo
-El código WS_Shoot implementa un manejador de WebSocket utilizando Spring Boot para gestionar eventos de disparos en un juego multijugador. Esta clase extiende TextWebSocketHandler y maneja la conexión, desconexión y el envío de mensajes entre los usuarios conectados. Utiliza un ConcurrentHashMap para almacenar las sesiones WebSocket activas, garantizando la seguridad en el acceso concurrente. Cuando una conexión es establecida o cerrada, se actualiza este mapa adecuadamente.
-
-El método handleTextMessage es crucial para la lógica del juego, ya que recibe mensajes de los usuarios y los reenvía a todos los demás usuarios conectados. Esta función asegura que, cuando un jugador envía un mensaje (como un evento de disparo), dicho mensaje se propague a los otros jugadores, manteniendo así la sincronización del estado del juego entre todos los participantes. La función sendMessage garantiza que los mensajes solo se envíen si las sesiones están abiertas, manejando cualquier excepción que pueda ocurrir durante el envío.
-
-Del lado del cliente, el código JavaScript establece una conexión WebSocket con el servidor en el endpoint ws://localhost:8080/payback/shoot. La función createShootSocket maneja los eventos de conexión, error, y cierre de la conexión WebSocket, proporcionando también un método sendWS para enviar mensajes de disparos al servidor. Cuando se recibe un mensaje, la función onmessage actualiza el estado del disparo de los jugadores en el juego, permitiendo que la interfaz del usuario refleje los eventos de disparo en tiempo real. Esto asegura una experiencia de juego fluida y reactiva para los usuarios.
 
 
-Equipo
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Equipo
 
 El éxito de un juego como Payback no solo depende de su concepto y mecánicas, sino también del talento y la experiencia del equipo de desarrollo que trabaja detrás de escena.
 
@@ -585,47 +573,3 @@ Javi lidera el equipo de proyecto, supervisando la planificación, coordinación
 Jefe de modelado: Carlos Vega San Román
 Carlos lidera el equipo de modelado, encargado de crear los modelos bidimensionales de los personajes, escenarios y objetos del juego. Supervisa el proceso de modelado, desde la creación de los bocetos iniciales hasta la implementación final en el juego.
 
-
-# RESUMEN
-
-### ESCENAS
-##### Se muestra el titulo del juego junto a un botón "jugar" con el que los jugadores comienzan la partida.
-![Menu](Capturas/menu.jpeg)
-###
-##### Mostramos un pequeño tutorial de que debe hacer el jugador para ganar.
-![Tutorial](Capturas/tutorial.jpeg)
-###
-##### La siguiente escena son los controles del juego.
-![Controles](Capturas/Controles.jpeg)
-###
-##### Este es el chat del juego, donde los diferentes jugadores conectados pueden hablar entre ellos.
-![Controles](Capturas/Chat.jpeg)
-###
-##### En pantalla se encuentran en escenario conformado por una serie de plataformas de color gris, en estas los jugadores pueden subirse para alcanzar una ventaja táctica sobre el enemigo así como cubrirse de los disparos rivales. A su vez, en la parte superior, se encuentran las vidas de cada jugador identificadas por un color, el jugador de la izquierda tendrá los corazones rojos y el de la izquierda los azules, siendo estas de un máximo de 3. Finalmente podemos identificar los personajes en juego como Holley “Killer” Miller y Bella Gang.
-![Juego](Capturas/juego.jpeg)
-###
-##### Se muestra una imagen totalmente diferente a la del juego, donde se muestra en el centro de la pantalla un botón "jugar" con el que se reanuda la partida.
-![MenuPausa](Capturas/menuPausa.jpeg)
-###
-##### Se muestra una imagen en la parte superior indicando que el jugador 1 ha sido el vencedor. Abajo de esta indicación hay un boton de reinicio que permite volver al menú principal para jugar otra partida.
-![victoria_J1](Capturas/victoria_J1.jpeg)
-###
-##### Se muestra una imagen en la parte superior indicando que el jugador 2 ha sido el vencedor. Abajo de esta indicación hay un boton de reinicio que permite volver al menú principal para jugar otra partida.
-![victoria_J2](Capturas/victoria_J2.jpeg)
-##### Esta última escena son los créditos, donde se nombran a los creadores del videojuego.
-![Controles](Capturas/Creditos.jpeg)
-###
-### DIAGRAMA DE ESTADOS
-![Escenas](Capturas/diagrama_de_estados.jpg)
-###
-### DIAGRAMA DE CLASES
-![Clases](Capturas/diagrama.jpg)
-##### En este menú se muestra el desplazamiento que puede hacer el jugador entre las escenas. En primer lugar, desde el menú principal solo puede acceder al juego, desde el juego al menú de pausa, y al de victoria de cada jugador. Desde estos se puede acceder al menu principal otra vez.
-### DISEÑO
-##### Para el diseño del juego se ha usado la inteligencia artificial para la creación de fondos, un fondo donde podemos observar que es el antiguo oeste mezclado con toques futurísicos. Los botones y letreros se han hecho en dorado para que destaquen. 
-### CONTROLES
-#### JUGADOR
-##### Salto- W
-##### Izquierda - A
-##### Derecha - D
-##### disparo - F
